@@ -1,105 +1,1351 @@
-<!DOCTYPE html>
+ㅁ<!DOCTYPE html>
 <html lang="ko" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Min Suhong | Computational Architect Portfolio</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        paperBg: '#e2e1dd', // Premium Warm Matte Paper Tone
+                        paperLight: '#eae9e6', 
+                        inkDark: '#121212', // Pure Black Ink
+                        inkGray: '#555555',
+                        neonAccent: '#cbf300', // Hand-drawn Neon Yellow-Green
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts (Cormorant Garamond for elegant editorial serif) & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #e2e1dd; color: #121212; }
-        .premium-border { border: 1px solid rgba(18, 18, 18, 0.12); }
-        .image-drop-zone { border: 2px dashed rgba(18, 18, 18, 0.2); transition: 0.3s; }
-        .image-drop-zone:hover { background: rgba(0,0,0,0.05); }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e2e1dd;
+            color: #121212;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(rgba(18, 18, 18, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(18, 18, 18, 0.02) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        /* Custom scrollbar matching paper theme */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e1dd;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5c4c0;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #121212;
+        }
+        /* Premium Minimalist Border styling */
+        .premium-border {
+            border: 1px solid rgba(18, 18, 18, 0.12);
+        }
+        .premium-border-b {
+            border-bottom: 1px solid rgba(18, 18, 18, 0.12);
+        }
+        /* Floating hand-drawn circle animation */
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        .hand-drawn-svg path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawCircle 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-inkDark selection:text-[#e2e1dd]">
+<body class="antialiased selection:bg-inkDark selection:text-paperBg">
 
-    <!-- 헤더와 Hero 섹션은 기존 유지 -->
-    <header class="fixed top-0 left-0 w-full z-50 px-12 py-6 flex justify-between items-start pointer-events-none">
-        <a href="#" class="pointer-events-auto text-2xl tracking-[0.25em] font-extrabold text-inkDark">M<span class="font-light text-gray-500">S</span>H</a>
-        <div class="pointer-events-auto text-right text-xs font-mono text-gray-600">tofromnok@gmail.com</div>
+    <!-- Top & Edge Navigation Grid (Mimics the premium high-fashion agency look) -->
+    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-start pointer-events-none">
+        <!-- Logo (Left) -->
+        <a href="#" class="pointer-events-auto text-2xl tracking-[0.25em] font-extrabold text-inkDark flex items-center gap-1">
+            M<span class="font-light text-inkGray">S</span>H
+        </a>
+
+        <!-- Middle Deco Anchor (Center Close/Drafting Icon) -->
+        <div class="hidden md:flex pointer-events-auto items-center justify-center w-10 h-10 rounded-full border border-inkDark/10 bg-paperBg/40 backdrop-blur-sm">
+            <i class="fa-solid fa-compass-drafting text-inkDark text-sm"></i>
+        </div>
+
+        <!-- Contact Detail Info (Right) -->
+        <div class="pointer-events-auto text-right text-[10px] md:text-xs font-mono text-inkGray space-y-0.5">
+            <div>+82 (0)10 8410 0357</div>
+            <a href="mailto:tofromnok@gmail.com" class="hover:text-inkDark transition-colors">tofromnok@gmail.com</a>
+        </div>
     </header>
 
-    <section id="portfolio" class="py-24 bg-[#eae9e6] mt-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-6xl font-light mb-16">Featured Projects</h2>
+    <!-- Hero / Ultra Large Navigation Hub (Main Landing Dashboard) -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-between px-6 md:px-12 py-12 pt-32 overflow-hidden select-none">
+        <!-- Background Grid Structural Lines -->
+        <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+            <canvas id="hero-grid-canvas" class="w-full h-full"></canvas>
+        </div>
 
-            <!-- 이미지 관리 기능이 통합된 프로젝트 카드 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+        <!-- Top spacing filler -->
+        <div></div>
+
+        <!-- Giant Navigation Menu Stack (Centerpiece) -->
+        <div class="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center justify-center my-auto py-12">
+            <div class="flex flex-col items-center space-y-3 md:space-y-4 w-full">
                 
-                <!-- 프로젝트 카드 템플릿 -->
-                <div class="glass-panel bg-white p-6 rounded-lg shadow-sm border border-gray-200" data-project-id="twist-tower">
-                    <h3 class="text-xl font-bold mb-4">The Twist Residential Tower</h3>
-                    
-                    <!-- 이미지 드롭존 -->
-                    <div class="image-drop-zone p-4 mb-4 rounded flex flex-col items-center justify-center text-center text-xs text-gray-400 cursor-pointer" 
-                         onclick="document.getElementById('file-twist-tower').click()">
-                        <i class="fa-solid fa-cloud-arrow-up text-xl mb-2"></i>
-                        <span>이미지 드래그/클릭 추가</span>
-                        <input type="file" id="file-twist-tower" class="hidden" multiple accept="image/*" onchange="handleFiles(this, 'twist-tower')">
+                <!-- Menu Item: HOME -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#hero')">
+                    <!-- SVG Loop Accent (appears on active state or hover) -->
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 50C15 25 100 12 200 12C300 12 385 25 385 50C385 75 300 88 200 88C100 88 15 75 15 50C15 40 40 25 100 20" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
                     </div>
-
-                    <!-- 이미지 그리드 -->
-                    <div id="grid-twist-tower" class="grid grid-cols-3 gap-2 mt-2">
-                        <!-- 이미지들이 여기에 추가됨 -->
-                    </div>
+                    <!-- Menu Text -->
+                    <a href="#hero" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        HOME
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">01 / VIEW HUB</span>
+                    </a>
                 </div>
 
-                <!-- 다른 프로젝트들도 동일한 구조로 추가 가능 -->
+                <!-- Menu Item: PROJECTS -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#portfolio')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 48C12 22 98 10 202 10C306 10 388 22 388 48C388 74 306 88 202 88C98 88 12 74 12 48" stroke="#cbf300" stroke-width="3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#portfolio" class="relative z-10 text-4xl md:text-7xl font-sans font-extrabold tracking-tight text-inkDark group-hover:font-serif group-hover:italic group-hover:font-light transition-all duration-300 flex items-center gap-4">
+                        PROJECTS
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">02 / PORTFOLIO</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: LAB -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#lab')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 52C18 28 105 14 198 14C291 14 382 28 382 52C382 76 291 86 198 86C105 86 18 76 18 52" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#lab" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        PROCESS LAB
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">03 / PARAMETRICS</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: ABOUT -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#about')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 50C15 25 100 12 200 12C300 12 385 25 385 50C385 75 300 88 200 88C100 88 15 75 15 50" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#about" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        ABOUT
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">04 / PROFILE</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: GUESTBOOK -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#guestbook')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 50C10 24 95 12 200 12C305 12 390 24 390 50C390 76 305 88 200 88C95 88 10 76 10 50" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#guestbook" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        GUESTBOOK
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">05 / TRACE</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: CONTACT -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#contact')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 48C14 22 98 10 200 10C302 10 386 22 386 48C386 74 302 90 200 90C98 90 14 74 14 48" stroke="#cbf300" stroke-width="3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#contact" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        CONTACT
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">06 / COLLABORATE</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Minimal Footer Index (Bottom) -->
+        <div class="relative z-10 flex justify-between items-center text-xs font-mono text-inkGray border-t border-inkDark/10 pt-6">
+            <div class="flex gap-6">
+                <a href="https://linkedin.com" target="_blank" class="hover:text-inkDark transition-colors">LINKEDIN</a>
+                <a href="https://www.instagram.com/ezraisme?igsh=MTlxajNyaW41d21tbg%3D%3D&utm_source=qr" target="_blank" class="hover:text-inkDark transition-colors">INSTAGRAM</a>
+                <a href="https://behance.net" target="_blank" class="hover:text-inkDark transition-colors">BEHANCE</a>
+                <a href="https://github.com" target="_blank" class="hover:text-inkDark transition-colors">GITHUB</a>
+            </div>
+            <div class="hidden sm:block">
+                COMPUTATIONAL PORTFOLIO INDEX © 2026
             </div>
         </div>
     </section>
 
-    <script>
-        // 이미지 추가 처리 함수
-        function handleFiles(input, projectId) {
-            const files = input.files;
-            const grid = document.getElementById(`grid-${projectId}`);
+    <!-- Architectural Projects Section -->
+    <section id="portfolio" class="py-24 bg-paperLight relative border-t border-inkDark/10">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
             
-            Array.from(files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const imgContainer = document.createElement('div');
-                    imgContainer.className = 'relative group';
-                    imgContainer.innerHTML = `
-                        <img src="${e.target.result}" class="w-full h-16 object-cover rounded">
-                        <button onclick="this.parentElement.remove()" class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full opacity-0 group-hover:opacity-100">×</button>
-                    `;
-                    grid.appendChild(imgContainer);
-                    saveToStorage(projectId);
-                };
-                reader.readAsDataURL(file);
-            });
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+                <div class="space-y-4">
+                    <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase flex items-center gap-2">
+                        <span class="inline-block w-8 h-[1px] bg-inkDark"></span> Selected Architectural Works
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-light text-inkDark tracking-tight">Featured Projects</h2>
+                    <p class="text-inkGray font-light max-w-xl text-sm md:text-base">
+                        알고리즘 연산과 대지 기하학 분석을 거쳐 설계된 실물 기반 파라메트릭 프로젝트 및 공모전 당선 제안서 라인업입니다.
+                    </p>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 text-xs tracking-widest font-mono">
+                    <button class="filter-btn px-4 py-2.5 bg-inkDark text-paperBg border border-inkDark font-bold transition-all" data-filter="all">ALL WORKS</button>
+                    <button class="filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all" data-filter="residential">RESIDENTIAL</button>
+                    <button class="filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all" data-filter="public">PUBLIC & CULTURE</button>
+                    <button class="filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all" data-filter="experimental">EXPERIMENTAL</button>
+                </div>
+            </div>
+
+            <!-- Spotlight Signature Work (Huge Hero Banner) -->
+            <div class="mb-12 border border-inkDark/12 bg-paperBg rounded-lg overflow-hidden flex flex-col lg:flex-row items-stretch shadow-xl transition-all hover:border-inkDark/25 group">
+                <!-- Large Image Panel -->
+                <div class="lg:w-7/12 relative min-h-[350px] overflow-hidden bg-paperBg/50">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="The Twist Residential Tower" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" onerror="this.src='https://placehold.co/1200x800/e2e1dd/000?text=Signature+Project'">
+                    <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-paperBg via-paperBg/20 to-transparent"></div>
+                    <div class="absolute top-6 left-6 px-4 py-1.5 bg-inkDark text-paperBg font-mono text-[10px] font-bold tracking-widest uppercase rounded-sm">
+                        SIGNATURE SPOTLIGHT
+                    </div>
+                </div>
+                <!-- Metadata & Info Panel -->
+                <div class="lg:w-5/12 p-8 lg:p-12 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-xs font-mono text-inkGray">
+                            <span>SEOUL, KOREA</span>
+                            <span>•</span>
+                            <span>2025</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-inkDark tracking-wide group-hover:text-inkGray transition-colors">The Twist Residential Tower</h3>
+                        <p class="text-sm text-inkGray font-light leading-relaxed">
+                            일조 변수값 분석 및 형태 최적화 알고리즘 기반으로 도출한 기하학적 비정형 고층 공동주택 프로젝트. 가구별 평면 각도를 미세 조정하여 대지 제약을 극적인 주거 효율로 승화시켰습니다.
+                        </p>
+                    </div>
+
+                    <!-- Computational Data Dashboard Box -->
+                    <div class="grid grid-cols-2 gap-4 border-y border-inkDark/10 py-4 font-mono text-xs">
+                        <div>
+                            <span class="text-inkGray block">ALGORITHMIC GAIN</span>
+                            <span class="text-inkDark font-bold text-sm">+14.5% Solar Efficiency</span>
+                        </div>
+                        <div>
+                            <span class="text-inkGray block">WIND SHEAR RESIST.</span>
+                            <span class="text-inkDark font-bold text-sm">Optimal Performance</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-xs font-mono text-inkGray">GFA: <strong>45,200㎡</strong></span>
+                        <button onclick="openModal('twist-tower')" class="px-6 py-3 bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all font-semibold font-mono text-xs tracking-wider flex items-center gap-2">
+                            EXPLORE CASE STUDY <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid (Remaining Projects) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                
+                <!-- Project 02 -->
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="public">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Metropolitan Culture Node" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Cultural+Node'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Built Competition</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Busan, South Korea | 2024</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Metropolitan Culture Hub</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">제한된 50m x 50m의 사이트에서 열린 흐름의 중정을 지향하는 도심지 다목적 문화 공용관 기획안.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Site Area: <strong class="text-inkDark">2,500㎡</strong></span>
+                            <button onclick="openModal('culture-hub')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="experimental">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Eco Responsive Envelope" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Eco+Envelope'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Research Lab</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Zurich, Switzerland | 2026</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">The Responsive Kinetic Pavilion</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">조도 센서에 연동하여 자율 회전 작동하는 이중 외피 키네틱 모듈 파빌리온 및 구조 로직 구현 실험.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Materials: <strong class="text-inkDark">CNC Oak, Servos</strong></span>
+                            <button onclick="openModal('kinetic-pavilion')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 04 -->
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="residential">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Topographic Villa Complex" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Topographic+Villa'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Residential Work</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Jeju, South Korea | 2025</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Topographic Villa Complex</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">지형 등고선을 물리 알고리즘으로 시각화하고 산림 훼손을 줄이도록 매스를 변형 분할한 프리미엄 단독주택지.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Scale: <strong class="text-inkDark">12 Units</strong></span>
+                            <button onclick="openModal('topo-villa')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 05 -->
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="public">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Sustainable Waterfront Library" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Waterfront+Library'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Concept Proposal</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Incheon, South Korea | 2024</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Eco Waterfront Library</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">바다와 대지의 교차 영역에 위치하여 수력 에너지 냉각 순환을 도입한 다이어그램 기반 친환경 도서관 제안서.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">GFA: <strong class="text-inkDark">18,900㎡</strong></span>
+                            <button onclick="openModal('waterfront-library')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 06 -->
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="experimental">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Generative Spatial Planner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Generative+Layout'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Scripting R&D</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Cloud Compute | 2026</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Generative Spatial Planner</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">파이썬 알고리즘으로 부실의 배치 최적 경로를 우선 분석해 실시간 조닝 레이아웃을 생성하는 그래스호퍼 툴체인.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Language: <strong class="text-inkDark">Python, GH</strong></span>
+                            <button onclick="openModal('gen-planner')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Computational Architecture Laboratory Section -->
+    <section id="lab" class="py-24 bg-paperBg border-y border-inkDark/10 relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">03 / Algorithm & Logic</div>
+                <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Parametric Studio Lab</h2>
+                <div class="w-16 h-[1px] bg-inkDark mx-auto"></div>
+                <p class="text-inkGray font-light text-sm md:text-base">
+                    직접 변수 값들을 조절하며 형태의 기하학적 변화와 일조 환경 최적화 매스 시뮬레이션을 모의 분석해보세요. 위 대표 포트폴리오 프로젝트들이 구축된 근간 파라메트릭 제어 엔진입니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+                <!-- Parameters Controls Panel -->
+                <div class="lg:col-span-4 flex flex-col justify-between glass-panel p-8 rounded-lg shadow-xl relative overflow-hidden bg-paperLight/60">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-2 border-b border-inkDark/10 pb-4">
+                            <i class="fa-solid fa-sliders text-inkDark text-lg"></i>
+                            <h3 class="text-lg font-bold text-inkDark tracking-wider font-mono">PARAMETER MANAGER</h3>
+                        </div>
+
+                        <!-- Param 1: Height / Floors -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-inkGray">Target Floors (높이)</span>
+                                <span class="text-inkDark font-bold" id="val-floors">25 Layers</span>
+                            </div>
+                            <input type="range" id="param-floors" min="5" max="45" value="25" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Param 2: Twist Angle -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-inkGray">Twist Rotation (트위스트)</span>
+                                <span class="text-inkDark font-bold" id="val-twist">90°</span>
+                            </div>
+                            <input type="range" id="param-twist" min="0" max="360" value="90" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Param 3: Taper Scale -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-inkGray">Taper Scale (테이퍼링)</span>
+                                <span class="text-inkDark font-bold" id="val-taper">0.6x</span>
+                            </div>
+                            <input type="range" id="param-taper" min="20" max="150" value="60" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Param 4: Wave Amplitude -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-mono">
+                                <span class="text-inkGray">Facade Wave (파사드 기복)</span>
+                                <span class="text-inkDark font-bold" id="val-wave">3.0</span>
+                            </div>
+                            <input type="range" id="param-wave" min="0" max="100" value="30" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Readouts -->
+                    <div class="mt-8 pt-6 border-t border-inkDark/10 space-y-3 text-xs font-mono">
+                        <div class="flex justify-between text-inkGray">
+                            <span>Total Surface Area:</span>
+                            <span class="text-inkDark" id="stat-surface">14,352㎡</span>
+                        </div>
+                        <div class="flex justify-between text-inkGray">
+                            <span>Solar Radiation Gain:</span>
+                            <span class="text-inkDark font-bold" id="stat-solar">Optimal (-14%)</span>
+                        </div>
+                        <div class="flex justify-between text-inkGray">
+                            <span>Algorithm Core:</span>
+                            <span class="text-inkGray">GhPython v2.61</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Output Window (Canvas) -->
+                <div class="lg:col-span-8 glass-panel rounded-lg shadow-xl relative overflow-hidden flex flex-col justify-between p-6 min-h-[450px] bg-paperLight/60">
+                    <div class="absolute top-4 left-6 flex items-center gap-3 z-20">
+                        <div class="w-2.5 h-2.5 rounded-full bg-inkDark animate-pulse"></div>
+                        <span class="text-xs font-mono tracking-widest text-inkGray">LIVE MASS SIMULATION (3D PERSPECTIVE)</span>
+                    </div>
+
+                    <div class="absolute top-4 right-6 flex gap-2 z-20">
+                        <button id="btn-wireframe" class="px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark/5 text-inkDark hover:bg-inkDark/10 transition-all border border-inkDark/10">WIREFRAME</button>
+                        <button id="btn-shaded" class="px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all border border-inkDark/20">SOLID RENDER</button>
+                    </div>
+
+                    <!-- Interactive Main Visualizer Canvas -->
+                    <div class="flex-1 w-full min-h-[300px] relative flex items-center justify-center mt-6">
+                        <canvas id="main-lab-canvas" class="w-full h-full cursor-grab active:cursor-grabbing absolute inset-0 z-10"></canvas>
+                        
+                        <!-- Mini Legend/Scale Axis -->
+                        <div class="absolute bottom-4 left-4 z-20 font-mono text-[9px] text-inkGray bg-paperBg/80 px-3 py-2 rounded border border-inkDark/5 space-y-1">
+                            <div><span class="inline-block w-2 h-0.5 bg-red-600 mr-1"></span> X-Axis (East)</div>
+                            <div><span class="inline-block w-2 h-0.5 bg-emerald-600 mr-1"></span> Y-Axis (North)</div>
+                            <div><span class="inline-block w-2 h-0.5 bg-blue-600 mr-1"></span> Z-Axis (Altitude)</div>
+                        </div>
+                        <div class="absolute bottom-4 right-4 z-20 font-mono text-[9px] text-inkGray pointer-events-none bg-paperBg/80 px-2 py-1 rounded">
+                            DRAG TO ROTATE VIEW
+                        </div>
+                    </div>
+
+                    <!-- Analysis Output Panel footer -->
+                    <div class="border-t border-inkDark/10 pt-4 mt-4 flex flex-wrap gap-4 items-center justify-between z-20">
+                        <div class="flex items-center gap-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-inkDark"></span>
+                                <span class="text-[11px] font-mono text-inkGray">Algorithmic Optimization</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                <span class="text-[11px] font-mono text-inkGray">Active Wind Shear Reduction</span>
+                            </div>
+                        </div>
+                        <button id="btn-export-mesh" class="px-4 py-2 bg-inkDark/5 hover:bg-inkDark/10 text-inkDark border border-inkDark/10 text-[11px] font-mono tracking-wider transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-download"></i> EXPORT CONFIG (.JSON)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-paperLight relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Details -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">04 / Computational Profile</div>
+                    <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Computational Craftsmanship</h2>
+                    <div class="w-16 h-[1px] bg-inkDark"></div>
+                    <p class="text-inkGray text-sm md:text-base leading-relaxed font-light">
+                        안녕하세요, 컴퓨테이셔널 아키텍트 **민수홍**입니다. 
+                        단순한 조형적 아름다움을 넘어 기후 분석, 최적의 동선 알고리즘, 구조적 시뮬레이션을 형태 디자인과 연동시키는 프로세스를 다룹니다.
+                    </p>
+                    <p class="text-inkGray text-sm md:text-base leading-relaxed font-light">
+                        Rhino, Grasshopper, Python을 도구 삼아 물리 기반 시뮬레이션 및 데이터 주도 패널라이징 등을 전문적으로 연구 및 수행해왔습니다. 대지와 자재, 기후의 파라미터를 하나의 유기체적인 공간 시스템으로 통합해 나가는 것이 핵심 작업 목표입니다.
+                    </p>
+                    
+                    <div class="pt-4 grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-paperBg border border-inkDark/10 rounded">
+                            <div class="text-inkDark text-2xl font-bold font-mono">08+</div>
+                            <div class="text-xs text-inkGray mt-1 font-mono uppercase">Years Experience</div>
+                        </div>
+                        <div class="p-4 bg-paperBg border border-inkDark/10 rounded">
+                            <div class="text-inkDark text-2xl font-bold font-mono">24+</div>
+                            <div class="text-xs text-inkGray mt-1 font-mono uppercase">Built & Research</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Computational Flowchart Layout -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-panel p-6 rounded-lg space-y-6 bg-paperBg/50 border border-inkDark/10">
+                        <h4 class="text-inkDark tracking-widest font-mono text-sm border-b border-inkDark/10 pb-3 uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-diagram-project text-inkDark"></i> EXPERT METHODOLOGY & STACK
+                        </h4>
+                        
+                        <div class="space-y-4">
+                            <!-- Skill 1 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span class="text-inkGray">Grasshopper & Parametric Engineering</span>
+                                    <span class="text-inkDark font-bold">95%</span>
+                                </div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill 2 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span class="text-inkGray">Python Scripting (GhPython & Web Automation)</span>
+                                    <span class="text-inkDark font-bold">88%</span>
+                                </div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 3 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span class="text-inkGray">Performance Simulation (Solar Radiation & Wind Load)</span>
+                                    <span class="text-inkDark font-bold">85%</span>
+                                </div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 4 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span class="text-inkGray">Dynamic UI & Pseudo-3D Canvas Engines</span>
+                                    <span class="text-inkDark font-bold">80%</span>
+                                </div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical Tools Grid -->
+                        <div class="pt-6 border-t border-inkDark/10">
+                            <div class="text-xs text-inkGray font-mono tracking-widest uppercase mb-3">SOFTWARE SYSTEM INTEGRATION</div>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Rhino 3D</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Grasshopper 3D</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">GhPython</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Ladybug & Honeybee</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Kangaroo Physics</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">HTML5 Canvas API</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guestbook Section -->
+    <section id="guestbook" class="py-24 bg-paperBg border-t border-inkDark/10 relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">05 / Digital Trace</div>
+                <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Guestbook Ledger</h2>
+                <div class="w-16 h-[1px] bg-inkDark mx-auto"></div>
+                <p class="text-inkGray font-light text-sm md:text-base">
+                    실시간 패들렛(Padlet) 보드가 완벽히 연동되어 있습니다. 소중한 의견을 메모로 남기거나 자유롭게 소통해보세요.
+                </p>
+            </div>
+
+            <!-- Responsive Interactive Padlet Wrapper -->
+            <div class="glass-panel p-2 md:p-4 rounded-lg shadow-xl relative border border-inkDark/10 overflow-hidden bg-paperLight">
+                <div class="relative w-full h-[600px] md:h-[700px] bg-paperLight rounded-md overflow-hidden">
+                    <!-- Premium Loader Spinner -->
+                    <div id="padlet-loader" class="absolute inset-0 flex flex-col justify-center items-center bg-paperBg z-20 transition-opacity duration-500 pointer-events-none">
+                        <div class="w-10 h-10 border-2 border-inkDark/10 border-t-inkDark rounded-full animate-spin"></div>
+                        <span class="text-xs font-mono text-inkGray tracking-widest mt-4">ESTABLISHING LIVE BOARD SYNC...</span>
+                    </div>
+                    
+                    <!-- Secure Padlet Embed View -->
+                    <iframe 
+                        src="https://padlet.com/embed/ezraisme1019/padlet-r7u91relort73xz8" 
+                        class="w-full h-full border-0 rounded-md relative z-10" 
+                        allow="camera; microphone; geolocation"
+                        onload="document.getElementById('padlet-loader').classList.add('opacity-0')"
+                        style="background: transparent;">
+                    </iframe>
+                </div>
+
+                <!-- Open in New Tab Action Grid -->
+                <div class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono px-2">
+                    <span class="text-inkGray flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live Stream Synchronized
+                    </span>
+                    <a href="https://padlet.com/ezraisme1019/padlet-r7u91relort73xz8" target="_blank" class="w-full sm:w-auto text-center px-6 py-3 bg-inkDark text-paperBg font-semibold tracking-wider hover:bg-inkDark/90 transition-all duration-300 flex items-center justify-center gap-2">
+                        OPEN BOARD IN NEW TAB <i class="fa-solid fa-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-paperLight border-t border-inkDark/10 relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">06 / Collaboration Inquiry</div>
+                <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Let's Synthesize Data & Form</h2>
+                <div class="w-16 h-[1px] bg-inkDark mx-auto"></div>
+                <p class="text-inkGray font-light text-sm md:text-base">
+                    다음 파라메트릭 프로젝트 협업이나 기술 워크숍, 강연 요청 등 비즈니스 제안을 언제든 접수해주세요.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                <!-- Left Info Card -->
+                <div class="lg:col-span-5 glass-panel p-8 rounded-lg flex flex-col justify-between bg-paperBg/50 border border-inkDark/10">
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-inkDark tracking-widest font-mono text-xs uppercase mb-3 border-b border-inkDark/10 pb-2">STUDIO OFFICE</h4>
+                            <p class="text-sm text-inkGray font-light leading-relaxed">
+                                서울시 강남구 테헤란로 2026, 알고리즘 빌딩 7F<br>
+                                STUDIO ARCH R&D Center
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-inkDark tracking-widest font-mono text-xs uppercase mb-3 border-b border-inkDark/10 pb-2">COMMUNICATIONS</h4>
+                            <ul class="space-y-2 text-sm text-inkGray font-light font-mono">
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-envelope text-inkDark"></i> tofromnok@gmail.com
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-phone text-inkDark"></i> +82 (0)10 8410 0357
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i class="fa-solid fa-globe text-inkDark"></i> tofromnok@gmail.com
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Custom notification center for contact responses inside iframe -->
+                    <div id="contact-response" class="hidden mt-6 p-4 bg-inkDark/5 border border-inkDark/10 text-inkDark text-xs font-mono rounded">
+                        <!-- Message will be dynamically placed here -->
+                    </div>
+
+                    <div class="pt-8 border-t border-inkDark/5 text-xs text-inkGray font-mono tracking-wider flex items-center gap-3">
+                        <i class="fa-solid fa-clock text-inkDark"></i> UTC+9 / Responsive within 24h
+                    </div>
+                </div>
+
+                <!-- Right Contact Form -->
+                <div class="lg:col-span-7 glass-panel p-8 rounded-lg bg-paperBg/50 border border-inkDark/10">
+                    <form id="contact-form" class="space-y-6" onsubmit="handleContactSubmit(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Your Name (이름)</label>
+                                <input type="text" required class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkDark focus:outline-none focus:border-inkDark transition-all font-mono" placeholder="성함을 입력하세요.">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Email Address (이메일)</label>
+                                <input type="email" required class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkDark focus:outline-none focus:border-inkDark transition-all font-mono" placeholder="example@mail.com">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Project Type (프로젝트 유형)</label>
+                            <select class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkGray focus:outline-none focus:border-inkDark transition-all font-mono">
+                                <option>Parametric Design Consultation</option>
+                                <option>Sustainability Performance Simulation</option>
+                                <option>Joint Research / Built Project</option>
+                                <option>Other General Questions</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Message (상세 내용)</label>
+                            <textarea rows="5" required class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkDark focus:outline-none focus:border-inkDark transition-all resize-none font-mono" placeholder="협업 구상 중이신 아이디어나 대지 환경 조건을 설명해주세요."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-inkDark text-paperBg font-semibold text-xs tracking-widest uppercase hover:bg-inkDark/90 transition-all duration-300">
+                            TRANSMIT ALGORITHMIC DESIGN BRIEF <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-paperLight border-t border-inkDark/10 text-center text-xs text-inkGray font-mono">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                &copy; 2026 Min Suhong. All Computational Algorithms Reserved.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-inkDark transition-colors">PRIVACY CODE</a>
+                <a href="#" class="hover:text-inkDark transition-colors">LICENSE</a>
+                <a href="#" class="hover:text-inkDark transition-colors">GIT_REPOS</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal Window Backdrop -->
+    <div id="project-modal" class="fixed inset-0 z-50 bg-inkDark/40 backdrop-blur-md hidden justify-center items-center p-4">
+        <div class="w-full max-w-4xl max-h-[90vh] glass-panel rounded-lg overflow-y-auto text-left shadow-2xl relative border border-inkDark/10 flex flex-col bg-paperBg">
+            <!-- Modal Close Action -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-inkGray hover:text-inkDark transition-colors p-2 z-10" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="p-6 md:p-10 space-y-6" id="modal-content-container">
+                <!-- Inner content injected dynamically via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript & Interactive Modules -->
+    <script>
+        // 1. Smooth Scroll Navigation Action Helper
+        function smoothScrollTo(selector) {
+            const target = document.querySelector(selector);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
-        function saveToStorage(projectId) {
-            const images = Array.from(document.getElementById(`grid-${projectId}`).querySelectorAll('img'))
-                                .map(img => img.src);
-            localStorage.setItem(`portfolio_images_${projectId}`, JSON.stringify(images));
-        }
+        // 2. Structural Background Mesh Grid Canvas Animation (Hero Background Matrix)
+        const bgCanvas = document.getElementById('hero-grid-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let bgPoints = [];
+        let width, height;
 
-        // 페이지 로드 시 기존 이미지 불러오기
-        window.onload = () => {
-            document.querySelectorAll('[data-project-id]').forEach(el => {
-                const pid = el.getAttribute('data-project-id');
-                const saved = localStorage.getItem(`portfolio_images_${pid}`);
-                if(saved) {
-                    const images = JSON.parse(saved);
-                    const grid = document.getElementById(`grid-${pid}`);
-                    images.forEach(src => {
-                        const imgContainer = document.createElement('div');
-                        imgContainer.className = 'relative group';
-                        imgContainer.innerHTML = `
-                            <img src="${src}" class="w-full h-16 object-cover rounded">
-                            <button onclick="this.parentElement.remove(); saveToStorage('${pid}')" class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full opacity-0 group-hover:opacity-100">×</button>
-                        `;
-                        grid.appendChild(imgContainer);
+        function resizeBgCanvas() {
+            width = bgCanvas.width = bgCanvas.parentElement.clientWidth;
+            height = bgCanvas.height = bgCanvas.parentElement.clientHeight;
+            
+            // Build dynamic node grid
+            bgPoints = [];
+            const cols = 15;
+            const rows = 15;
+            const xSpacing = width / (cols - 1);
+            const ySpacing = height / (rows - 1);
+
+            for (let c = 0; c < cols; c++) {
+                for (let r = 0; r < rows; r++) {
+                    bgPoints.push({
+                        baseX: c * xSpacing,
+                        baseY: r * ySpacing,
+                        x: c * xSpacing,
+                        y: r * ySpacing,
+                        offset: Math.random() * 100,
+                        speed: 0.02 + Math.random() * 0.02
                     });
                 }
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            resizeBgCanvas();
+            resizeMainLabCanvas();
+        });
+        resizeBgCanvas();
+
+        function animateBgGrid() {
+            bgCtx.clearRect(0, 0, width, height);
+            bgCtx.strokeStyle = 'rgba(18, 18, 18, 0.04)';
+            bgCtx.fillStyle = 'rgba(18, 18, 18, 0.06)';
+            bgCtx.lineWidth = 1;
+
+            const time = Date.now() * 0.001;
+
+            // Update node coordinate offsets
+            bgPoints.forEach(p => {
+                p.x = p.baseX + Math.sin(time * p.speed + p.offset) * 12;
+                p.y = p.baseY + Math.cos(time * p.speed * 1.5 + p.offset) * 12;
             });
+
+            // Draw structural link grids
+            const cols = 15;
+            const rows = 15;
+            for (let c = 0; c < cols; c++) {
+                for (let r = 0; r < rows; r++) {
+                    const currIdx = c * rows + r;
+                    const rightIdx = (c + 1) * rows + r;
+                    const downIdx = c * rows + (r + 1);
+
+                    // Connect Horizontal Structural Lines
+                    if (c < cols - 1) {
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(bgPoints[currIdx].x, bgPoints[currIdx].y);
+                        bgCtx.lineTo(bgPoints[rightIdx].x, bgPoints[rightIdx].y);
+                        bgCtx.stroke();
+                    }
+                    // Connect Vertical Structural Lines
+                    if (r < rows - 1) {
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(bgPoints[currIdx].x, bgPoints[currIdx].y);
+                        bgCtx.lineTo(bgPoints[downIdx].x, bgPoints[downIdx].y);
+                        bgCtx.stroke();
+                    }
+
+                    // Node Anchor points
+                    if (c % 2 === 0 && r % 2 === 0) {
+                        bgCtx.beginPath();
+                        bgCtx.arc(bgPoints[currIdx].x, bgPoints[currIdx].y, 2, 0, Math.PI * 2);
+                        bgCtx.fill();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateBgGrid);
+        }
+        animateBgGrid();
+
+
+        // 3. Main Parametric Simulator Laboratory (3D Pseudo Engine)
+        const mainLabCanvas = document.getElementById('main-lab-canvas');
+        const mainCtx = mainLabCanvas.getContext('2d');
+        
+        // Sim State Variables
+        let simMode = 'shaded'; // 'wireframe' or 'shaded'
+        let yaw = 0.5;   // Rotation around building axis
+        let pitch = 0.3; // Elevation angle looking down
+        let isDraggingMain = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+
+        // Param DOM references
+        const paramFloors = document.getElementById('param-floors');
+        const paramTwist = document.getElementById('param-twist');
+        const paramTaper = document.getElementById('param-taper');
+        const paramWave = document.getElementById('param-wave');
+
+        const valFloors = document.getElementById('val-floors');
+        const valTwist = document.getElementById('val-twist');
+        const valTaper = document.getElementById('val-taper');
+        const valWave = document.getElementById('val-wave');
+
+        const statSurface = document.getElementById('stat-surface');
+        const statSolar = document.getElementById('stat-solar');
+
+        function resizeMainLabCanvas() {
+            mainLabCanvas.width = mainLabCanvas.parentElement.clientWidth;
+            mainLabCanvas.height = mainLabCanvas.parentElement.clientHeight;
+            drawSimBuilding();
+        }
+        resizeMainLabCanvas();
+
+        // Sliders Listeners
+        function updateSlidersReadouts() {
+            valFloors.innerText = `${paramFloors.value} Floors`;
+            valTwist.innerText = `${paramTwist.value}°`;
+            valTaper.innerText = `${(paramTaper.value / 100).toFixed(1)}x`;
+            valWave.innerText = `${(paramWave.value / 10).toFixed(1)}`;
+
+            // Formulate dynamic statistics response
+            const floorCount = parseInt(paramFloors.value);
+            const rawArea = floorCount * 580 * (paramTaper.value / 100);
+            statSurface.innerText = `${Math.round(rawArea).toLocaleString()}㎡`;
+
+            // Solar score based on twist logic (twist reduces solar heat gain load in active orientations)
+            const twistValue = parseInt(paramTwist.value);
+            const waveValue = parseInt(paramWave.value);
+            if (twistValue > 80 && twistValue < 190) {
+                statSolar.innerText = `Optimal (-${(10 + (twistValue/30) + (waveValue/20)).toFixed(1)}%)`;
+            } else if (twistValue >= 190 && twistValue <= 290) {
+                statSolar.innerText = `Moderate (-${(5 + (waveValue/30)).toFixed(1)}%)`;
+            } else {
+                statSolar.innerText = `High Radiation Load`;
+            }
+        }
+
+        [paramFloors, paramTwist, paramTaper, paramWave].forEach(el => {
+            el.addEventListener('input', () => {
+                updateSlidersReadouts();
+                drawSimBuilding();
+            });
+        });
+
+        // Toggle Rendering Mode
+        document.getElementById('btn-wireframe').addEventListener('click', () => {
+            simMode = 'wireframe';
+            document.getElementById('btn-wireframe').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all border border-inkDark/20";
+            document.getElementById('btn-shaded').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark/5 text-inkDark hover:bg-inkDark/10 transition-all border border-inkDark/10";
+            drawSimBuilding();
+        });
+
+        document.getElementById('btn-shaded').addEventListener('click', () => {
+            simMode = 'shaded';
+            document.getElementById('btn-shaded').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all border border-inkDark/20";
+            document.getElementById('btn-wireframe').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark/5 text-inkDark hover:bg-inkDark/10 transition-all border border-inkDark/10";
+            drawSimBuilding();
+        });
+
+        // Engine Drawer Logic (Inverted to gorgeous monochrome paper / concrete grays)
+        function drawSimBuilding() {
+            const w = mainLabCanvas.width;
+            const h = mainLabCanvas.height;
+            mainCtx.clearRect(0, 0, w, h);
+
+            // Fetch dynamic state values
+            const floors = parseInt(paramFloors.value);
+            const maxTwistRad = (parseInt(paramTwist.value) * Math.PI) / 180;
+            const taperScale = parseInt(paramTaper.value) / 100;
+            const waveAmp = parseInt(paramWave.value) / 10;
+
+            const cx = w / 2;
+            const cy = h * 0.78;
+            const visualHeight = h * 0.62;
+            const floorStep = visualHeight / floors;
+
+            // Generate Floor Profiles using projected pseudo 3D system
+            // Geometry is an 8-sided polygon representing premium core facade structure
+            for (let f = 0; f < floors; f++) {
+                const z = f / floors;
+                const currentY = cy - (f * floorStep);
+                
+                // Taper & Wave computations
+                const scale = 110 * (1.0 - z * (1.0 - taperScale));
+                const currentTwist = z * maxTwistRad;
+                
+                // Construct structural wave ripple on outer shell
+                const currentWave = Math.sin(z * Math.PI * 4) * waveAmp * 15;
+                const dynamicRadius = scale + currentWave;
+
+                // Build polygon floor boundary vertices
+                const pts = [];
+                const numSides = 8;
+                for (let s = 0; s < numSides; s++) {
+                    const localAngle = (s * Math.PI * 2) / numSides;
+                    const combinedAngle = localAngle + currentTwist + yaw;
+
+                    // 3D coordinate model projecting relative to perspective pitch yaw matrix
+                    const rx = Math.cos(combinedAngle) * dynamicRadius;
+                    const rz = Math.sin(combinedAngle) * dynamicRadius;
+
+                    // Apply pitch transformation
+                    const projX = cx + rx;
+                    const projY = currentY + rz * pitch;
+                    
+                    pts.push({ x: projX, y: projY });
+                }
+
+                // Shaded Facade Solid Render (Painter's Algorithm order logic)
+                if (simMode === 'shaded') {
+                    // Segment-by-segment rendering with pseudo solar shading
+                    for (let s = 0; s < numSides; s++) {
+                        const nextIndex = (s + 1) % numSides;
+                        
+                        // Solar intensity mapping simulating sun from South-East direction
+                        const normalAngle = ((s + 0.5) * Math.PI * 2 / numSides) + currentTwist + yaw;
+                        const solarDir = -Math.PI / 4; // SE direction
+                        const cosShade = Math.cos(normalAngle - solarDir);
+                        
+                        // Shading mapped across building surfaces (Paper Matte Greys)
+                        let r, g, b;
+                        if (cosShade > 0.3) {
+                            // Bright Matte Concrete
+                            r = Math.floor(215 + cosShade * 25);
+                            g = Math.floor(212 + cosShade * 25);
+                            b = Math.floor(205 + cosShade * 25);
+                        } else {
+                            // Matte Gray Shadows
+                            r = Math.floor(130 + (cosShade + 1) * 35);
+                            g = Math.floor(128 + (cosShade + 1) * 35);
+                            b = Math.floor(122 + (cosShade + 1) * 35);
+                        }
+
+                        mainCtx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                        mainCtx.strokeStyle = 'rgba(18, 18, 18, 0.08)';
+                        mainCtx.lineWidth = 0.5;
+
+                        // Draw facade panel connecting current floor layer to next layer
+                        if (f < floors - 1) {
+                            const nextZ = (f + 1) / floors;
+                            const nextFloorY = cy - ((f + 1) * floorStep);
+                            const nextScale = 110 * (1.0 - nextZ * (1.0 - taperScale));
+                            const nextTwist = nextZ * maxTwistRad;
+                            const nextWave = Math.sin(nextZ * Math.PI * 4) * waveAmp * 15;
+                            const nextRad = nextScale + nextWave;
+
+                            // Next layer projected vertices
+                            const nPts = [];
+                            for (let na = 0; na < numSides; na++) {
+                                const nextLocalAngle = (na * Math.PI * 2) / numSides;
+                                const nextCombinedAngle = nextLocalAngle + nextTwist + yaw;
+                                const nrx = Math.cos(nextCombinedAngle) * nextRad;
+                                const nrz = Math.sin(nextCombinedAngle) * nextRad;
+
+                                nPts.push({
+                                    x: cx + nrx,
+                                    y: nextFloorY + nrz * pitch
+                                });
+                            }
+
+                            // Render polygon path
+                            mainCtx.beginPath();
+                            mainCtx.moveTo(pts[s].x, pts[s].y);
+                            mainCtx.lineTo(pts[nextIndex].x, pts[nextIndex].y);
+                            mainCtx.lineTo(nPts[nextIndex].x, nPts[nextIndex].y);
+                            mainCtx.lineTo(nPts[s].x, nPts[s].y);
+                            mainCtx.closePath();
+                            mainCtx.fill();
+                            mainCtx.stroke();
+                        }
+                    }
+                } else {
+                    // Wireframe Style Rendering (Fine architectural black ink lines)
+                    mainCtx.strokeStyle = 'rgba(18, 18, 18, 0.5)';
+                    mainCtx.lineWidth = 1;
+
+                    mainCtx.beginPath();
+                    mainCtx.moveTo(pts[0].x, pts[0].y);
+                    for (let p = 1; p < pts.length; p++) {
+                        mainCtx.lineTo(pts[p].x, pts[p].y);
+                    }
+                    mainCtx.closePath();
+                    mainCtx.stroke();
+
+                    // Structural vertical columns representation
+                    if (f < floors - 1 && f % 2 === 0) {
+                        mainCtx.strokeStyle = 'rgba(18, 18, 18, 0.12)';
+                        const nextFloorY = cy - ((f + 1) * floorStep);
+                        const nextZ = (f + 1) / floors;
+                        const nextScale = 110 * (1.0 - nextZ * (1.0 - taperScale));
+                        const nextTwist = nextZ * maxTwistRad;
+                        const nextWave = Math.sin(nextZ * Math.PI * 4) * waveAmp * 15;
+                        const nextRad = nextScale + nextWave;
+
+                        pts.forEach((pt, s) => {
+                            const nextAngle = (s * Math.PI * 2) / numSides + nextTwist + yaw;
+                            const nx = cx + Math.cos(nextAngle) * nextRad;
+                            const ny = nextFloorY + Math.sin(nextAngle) * nextRad * pitch;
+                            
+                            mainCtx.beginPath();
+                            mainCtx.moveTo(pt.x, pt.y);
+                            mainCtx.lineTo(nx, ny);
+                            mainCtx.stroke();
+                        });
+                    }
+                }
+            }
+        }
+        updateSlidersReadouts();
+        drawSimBuilding();
+
+        // Canvas interactions for yaw and pitch
+        mainLabCanvas.addEventListener('mousedown', (e) => {
+            isDraggingMain = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        // Touch Interaction Mapping
+        mainLabCanvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDraggingMain = true;
+                lastMouseX = e.touches[0].clientX;
+                lastMouseY = e.touches[0].clientY;
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDraggingMain) {
+                const dx = e.clientX - lastMouseX;
+                const dy = e.clientY - lastMouseY;
+                yaw += dx * 0.007;
+                pitch = Math.max(0.05, Math.min(1.0, pitch - dy * 0.005));
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+                drawSimBuilding();
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (isDraggingMain && e.touches.length === 1) {
+                const dx = e.touches[0].clientX - lastMouseX;
+                const dy = e.touches[0].clientY - lastMouseY;
+                yaw += dx * 0.007;
+                pitch = Math.max(0.05, Math.min(1.0, pitch - dy * 0.005));
+                lastMouseX = e.touches[0].clientX;
+                lastMouseY = e.touches[0].clientY;
+                drawSimBuilding();
+            }
+        });
+
+        window.addEventListener('mouseup', () => { isDraggingMain = false; });
+        window.addEventListener('touchend', () => { isDraggingMain = false; });
+
+        // Dynamic Parameter Config Exporter
+        document.getElementById('btn-export-mesh').addEventListener('click', () => {
+            const currentConfig = {
+                appId: "min-suhong-v1",
+                timestamp: new Date().toISOString(),
+                computationalParameters: {
+                    floors: parseInt(paramFloors.value),
+                    twistAngle: parseInt(paramTwist.value),
+                    taperScale: parseInt(paramTaper.value) / 100,
+                    waveAmplitude: parseInt(paramWave.value) / 10
+                },
+                diagnostics: {
+                    solarPerformanceScore: statSolar.innerText,
+                    modeType: simMode
+                }
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentConfig, null, 4));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "parametric_config_output.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+
+            // Notify custom message board instead of alert
+            const notificationBox = document.createElement('div');
+            notificationBox.className = "fixed bottom-6 right-6 z-50 glass-panel px-6 py-4 border border-inkDark/35 text-xs font-mono text-inkDark bg-paperLight rounded shadow-2xl animate-bounce";
+            notificationBox.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Config file export success (.JSON)`;
+            document.body.appendChild(notificationBox);
+            setTimeout(() => { notificationBox.remove(); }, 3500);
+        });
+
+
+        // 4. Portfolio Grid Category Filtering Logic
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button layout
+                filterButtons.forEach(b => {
+                    b.className = "filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all";
+                });
+                btn.className = "filter-btn px-4 py-2.5 bg-inkDark text-paperBg border border-inkDark font-bold transition-all";
+
+                const category = btn.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    if (category === 'all' || itemCategory === category) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+
+        // 5. Dynamic Modal Window Manager with Comprehensive Metadata Content
+        const modalBackdrop = document.getElementById('project-modal');
+        const modalContainer = document.getElementById('modal-content-container');
+
+        // Detailed architectural dataset
+        const projectData = {
+            'twist-tower': {
+                title: "The Twist Residential Tower",
+                category: "Residential Architecture",
+                location: "Seoul, South Korea",
+                year: "2025",
+                stats: "Gross Floor Area: 45,200㎡",
+                challenge: "도심 고밀 주거환경 하에서 모든 층의 고른 일조량 및 사생활 간섭 방지가 최우선 설계 과제였습니다. 인접 가구 간 조망을 차단하고 채광 조건의 다양성을 확보해야 했습니다.",
+                resolution: "일조 변수값 분석 및 형태 최적화 파라메트릭 알고리즘을 구축했습니다. 가구별 평면 각도를 평균 3도씩 미세 twist 회전시킴으로써 대지 제약 상황을 구조적 비정형 매스로 유려하게 해결하였으며, 태양광 집광 성능을 기존 매스안 대비 약 14.5% 상승시키는 데 성공했습니다.",
+                techStack: "Rhino 3D, Grasshopper, Kangaroo (Dynamic structural load), Ladybug (Solar radiation gain parse)",
+                imageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+            },
+            'culture-hub': {
+                title: "Metropolitan Culture Hub",
+                category: "Public & Culture Center",
+                location: "Busan, South Korea",
+                year: "2024",
+                stats: "Site Area: 2,500㎡",
+                challenge: "한정된 도심 부지 안에서 지상층의 오픈 스페이스를 최대화하면서 동시에 지역 커뮤니티가 원활히 연결되고 수용되는 입체적 다목적 문화 공용관의 형태 솔루션이 필요했습니다.",
+                resolution: "대지 내부로 개방되는 가로 중심 중정을 중심으로, 위상학적 도식 알고리즘(Topological diagraming)을 적용해 매스의 공중에 뜨는 캔틸레버형 가변 곡면 구조를 기획했습니다. 통풍 시뮬레이션을 통해 도시 바람길을 내재화한 형상 제어로 냉난방에너지 사용을 연간 12% 절감했습니다.",
+                techStack: "Grasshopper, Karamba3D (Feasibility check), CFD Wind simulation software",
+                imageUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
+            },
+            'kinetic-pavilion': {
+                title: "The Responsive Kinetic Pavilion",
+                category: "Experimental Architecture",
+                location: "Zurich, Switzerland",
+                year: "2026",
+                stats: "Materials: CNC Oak, Arduino Integrated Servos",
+                challenge: "대기 환경 기후 변화에 스스로 적응하는 스마트 빌딩 외피 메커니즘을 테스트하기 위한 일대일 실물 파빌리온 프로토타입 설계 및 센서-액추에이터 간 데이터 제어 루프 실험.",
+                resolution: "Grasshopper-Firefly 환경을 통해 실외 조도 센서와 모터를 실시간 통신하게 만들어 외피 패널이 태양 궤적에 정면 추종 혹은 그늘 차단 운동을 실행하도록 설계했습니다. 전체 자재를 정밀 가공 CNC 목공 조인트로 해결한 친환경 지속가능 생태건축 실사례입니다.",
+                techStack: "CNC Fabricating, Arduino-Firefly, Rhino.Inside, Python control script",
+                imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
+            },
+            'topo-villa': {
+                title: "Topographic Villa Complex",
+                category: "Residential Masterplan",
+                location: "Jeju, South Korea",
+                year: "2025",
+                stats: "Scale: 12 Premium Villa Units",
+                challenge: "한라산 자락 산림 지대의 극도로 굴곡진 자연 경사 지형과 자생 보존 수림을 훼손시키지 않으면서 단독주택 12가구의 시야 방해 없는 독자적 경관권을 분양 기획에 녹여내야 하는 기형 대지 난관 극복.",
+                resolution: "등고선을 정밀 3차원 클라우드로 변환하고, 경사 분석 및 경관 각도 추적 시뮬레이션 알고리즘을 연동시켜 각 가구의 배치 높이와 향을 실시간 보정 계산했습니다. 지형 성토 작업을 원래 지형 대비 단 5%로 억제한 친환경 저영향 개발(LID) 프로세스의 전형을 수립했습니다.",
+                techStack: "Point cloud scan raw processing, Kangaroo mesh drape simulation, QGIS mapping",
+                imageUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+            },
+            'waterfront-library': {
+                title: "Eco Waterfront Library",
+                category: "Concept Proposal / Educational",
+                location: "Incheon, South Korea",
+                year: "2024",
+                stats: "Gross Floor Area: 18,900㎡",
+                challenge: "해안가 연약지반이라는 입지 조건 및 서해 낙조 강한 햇빛의 직접 투과 현상으로 야기되는 실내 도서 보존 구역의 열악한 온습도 밸런스 유지.",
+                resolution: "해안 조수의 흐름을 이용한 바다 에너지 자연 냉수 냉방 순환로를 디자인하고, 도서관 외부 이중 스킨 글레이징에 파라메트릭 다이아그리드(Diagrid) 음영 루버를 배치해 내부 조도를 인체 최적치인 300~500lx 범위로 실시간 자동 분광 및 산란 조율하도록 해결하였습니다.",
+                techStack: "Honeybee daylight optimization, Ecotect thermodynamic simulations, Glass facade structure calculations",
+                imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+            },
+            'gen-planner': {
+                title: "Generative Spatial Planner",
+                category: "GhPython Scripting / R&D Toolchain",
+                location: "Cloud Computation System",
+                year: "2026",
+                stats: "Language: Python, Grasshopper SDK",
+                challenge: "기획 초기 단계에서 대규모 복합 건축물의 부실 기능 간 연계 동선을 최단 거리화하고 최상의 효율 레이아웃을 생성하기 위한 실시간 인공지능 보조 알고리즘 개발.",
+                resolution: "거리와 기능의 관계성을 네트워크 그래프 수학 모델로 전환하여 유전 알고리즘(Galapagos) 및 파이썬 우선순위 알고리즘을 탑재시켰습니다. 배치 최적 결과안 5개를 3초 이내에 자동 생성 후 다이어그램 및 원가 산정 매스 데이터 시트로 리포팅하는 설계 효율 혁신을 이루었습니다.",
+                techStack: "Python, GhPython components, NetworkX library structure, Galapagos evolutionary solver",
+                imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+            }
         };
+
+        function openModal(id) {
+            const data = projectData[id];
+            if (!data) return;
+
+            modalContainer.innerHTML = `
+                <div class="space-y-6">
+                    <!-- Head Details -->
+                    <div class="border-b border-inkDark/10 pb-4">
+                        <span class="text-xs text-inkDark font-mono uppercase">${data.category}</span>
+                        <h2 class="text-2xl md:text-4xl font-semibold text-inkDark tracking-wide mt-1">${data.title}</h2>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2 mt-3 text-xs text-inkGray font-mono">
+                            <div><span class="text-inkGray">LOCATION:</span> ${data.location}</div>
+                            <div><span class="text-inkGray">YEAR:</span> ${data.year}</div>
+                            <div><span class="text-inkGray">DETAILS:</span> ${data.stats}</div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Spec Image -->
+                    <div class="aspect-[16/9] w-full rounded overflow-hidden bg-paperLight">
+                        <img src="${data.imageUrl}" alt="${data.title}" class="w-full h-full object-cover opacity-90" onerror="this.src='https://placehold.co/1200x675/e2e1dd/000?text=STUDIO+ARCH+Case+Image'">
+                    </div>
+
+                    <!-- Description Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm leading-relaxed">
+                        <div class="space-y-3">
+                            <h4 class="text-inkDark font-mono text-xs uppercase tracking-widest flex items-center gap-2 border-b border-inkDark/10 pb-1">
+                                <i class="fa-solid fa-triangle-exclamation"></i> PROJECT CHALLENGE
+                            </h4>
+                            <p class="text-inkGray font-light">${data.challenge}</p>
+                        </div>
+                        <div class="space-y-3">
+                            <h4 class="text-inkDark font-mono text-xs uppercase tracking-widest flex items-center gap-2 border-b border-inkDark/10 pb-1">
+                                <i class="fa-solid fa-code-merge"></i> COMPUTATIONAL RESOLUTION
+                            </h4>
+                            <p class="text-inkGray font-light">${data.resolution}</p>
+                        </div>
+                    </div>
+
+                    <!-- Tech stack list footer -->
+                    <div class="bg-paperLight border border-inkDark/10 rounded p-4">
+                        <div class="text-xs text-inkGray font-mono tracking-widest uppercase mb-2">SYSTEM PARAMETER STACK & INTEGRATIONS</div>
+                        <div class="text-xs text-inkDark font-mono">${data.techStack}</div>
+                    </div>
+                </div>
+            `;
+
+            modalBackdrop.classList.remove('hidden');
+            modalBackdrop.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // block outer scroll
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('hidden');
+            modalBackdrop.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close on backdrop clicking
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) {
+                closeModal();
+            }
+        });
+
+
+        // 6. Premium Interactive Contact form handler with custom UI notifications
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const contactResponse = document.getElementById('contact-response');
+            contactResponse.classList.remove('hidden');
+            contactResponse.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Encoding design parameters and transmitting brief...`;
+
+            // Simulate cloud server database saving simulation delayed reaction
+            setTimeout(() => {
+                contactResponse.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="font-bold text-inkDark"><i class="fa-solid fa-check-double mr-2"></i> DATA TRANSMITTED SUCCESSFULLY!</div>
+                        <div class="text-[10px] text-inkGray">Our computational pipeline has indexed your parameters. Min Suhong's office will reply to you within 24 hours.</div>
+                    </div>
+                `;
+                event.target.reset();
+            }, 2000);
+        }
     </script>
 </body>
 </html>
