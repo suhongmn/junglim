@@ -12,234 +12,263 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
                     },
                     colors: {
-                        archDark: '#000000', // Pure Black
-                        archGray: '#0a0a0a', // Stark Gray
-                        archLight: '#ffffff', // Pure White
-                        archAccent: '#ffffff', // Monochrome theme accent
+                        paperBg: '#e2e1dd', // Premium Warm Matte Paper Tone
+                        paperLight: '#eae9e6', 
+                        inkDark: '#121212', // Pure Black Ink
+                        inkGray: '#555555',
+                        neonAccent: '#cbf300', // Hand-drawn Neon Yellow-Green
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts & FontAwesome for Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Cormorant Garamond for elegant editorial serif) & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #e5e7eb;
+            background-color: #e2e1dd;
+            color: #121212;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(rgba(18, 18, 18, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(18, 18, 18, 0.02) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
-        /* Custom scrollbar for premium touch */
+        /* Custom scrollbar matching paper theme */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #000000;
+            background: #e2e1dd;
         }
         ::-webkit-scrollbar-thumb {
-            background: #222222;
+            background: #c5c4c0;
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #ffffff;
+            background: #121212;
         }
-        /* Glassmorphism utility */
-        .glass-panel {
-            background: rgba(10, 10, 10, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        /* Premium Minimalist Border styling */
+        .premium-border {
+            border: 1px solid rgba(18, 18, 18, 0.12);
+        }
+        .premium-border-b {
+            border-bottom: 1px solid rgba(18, 18, 18, 0.12);
+        }
+        /* Floating hand-drawn circle animation */
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        .hand-drawn-svg path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawCircle 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-white selection:text-black">
+<body class="antialiased selection:bg-inkDark selection:text-paperBg">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-white/5 transition-all duration-300" id="main-nav">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-xl tracking-[0.2em] font-extrabold text-white flex items-center gap-2">
-                <span class="text-white"><i class="fa-solid fa-compass-drafting"></i></span>
-                MIN<span class="font-light text-gray-400">SUHONG</span>
-            </a>
-            
-            <!-- Desktop Links -->
-            <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest font-medium text-gray-400">
-                <a href="#hero" class="hover:text-white transition-colors">HOME</a>
-                <a href="#portfolio" class="hover:text-white transition-colors">PROJECTS</a>
-                <a href="#lab" class="hover:text-white transition-colors">LAB (PARAMETRIC)</a>
-                <a href="#about" class="hover:text-white transition-colors">ABOUT</a>
-                <a href="#guestbook" class="hover:text-white transition-colors">GUESTBOOK</a>
-                <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
-            </div>
+    <!-- Top & Edge Navigation Grid (Mimics the premium high-fashion agency look) -->
+    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-start pointer-events-none">
+        <!-- Logo (Left) -->
+        <a href="#" class="pointer-events-auto text-2xl tracking-[0.25em] font-extrabold text-inkDark flex items-center gap-1">
+            M<span class="font-light text-inkGray">S</span>H
+        </a>
 
-            <!-- Contact Quick CTA -->
-            <div class="hidden md:block">
-                <a href="#contact" class="px-5 py-2.5 rounded-none border border-white text-white hover:bg-white hover:text-black transition-all duration-300 text-xs tracking-wider font-semibold">
-                    GET IN TOUCH
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle Button -->
-            <button class="md:hidden text-white text-2xl focus:outline-none" id="mobile-menu-btn" aria-label="Toggle Menu">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+        <!-- Middle Deco Anchor (Center Close/Drafting Icon) -->
+        <div class="hidden md:flex pointer-events-auto items-center justify-center w-10 h-10 rounded-full border border-inkDark/10 bg-paperBg/40 backdrop-blur-sm">
+            <i class="fa-solid fa-compass-drafting text-inkDark text-sm"></i>
         </div>
 
-        <!-- Mobile Dropdown Menu -->
-        <div class="hidden md:hidden glass-panel border-b border-white/5 py-6 px-6 space-y-4" id="mobile-menu">
-            <a href="#hero" class="block text-sm tracking-widest text-gray-300 hover:text-white transition-colors py-2">HOME</a>
-            <a href="#portfolio" class="block text-sm tracking-widest text-gray-300 hover:text-white transition-colors py-2">PROJECTS</a>
-            <a href="#lab" class="block text-sm tracking-widest text-gray-300 hover:text-white transition-colors py-2">LAB (PARAMETRIC)</a>
-            <a href="#about" class="block text-sm tracking-widest text-gray-300 hover:text-white transition-colors py-2">ABOUT</a>
-            <a href="#guestbook" class="block text-sm tracking-widest text-gray-300 hover:text-white transition-colors py-2">GUESTBOOK</a>
-            <a href="#contact" class="block text-sm tracking-widest text-gray-300 hover:text-white transition-colors py-2">CONTACT</a>
-            <a href="#contact" class="block w-full text-center px-4 py-3 border border-white text-white text-xs tracking-widest">GET IN TOUCH</a>
+        <!-- Contact Detail Info (Right) -->
+        <div class="pointer-events-auto text-right text-[10px] md:text-xs font-mono text-inkGray space-y-0.5">
+            <div>+82 (0)2 1234 5678</div>
+            <a href="mailto:info@suhongmin.com" class="hover:text-inkDark transition-colors">info@suhongmin.com</a>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
-        <!-- Structural Mesh Grid Animation Background -->
-        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+    <!-- Hero / Ultra Large Navigation Hub (Main Landing Dashboard) -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-between px-6 md:px-12 py-12 pt-32 overflow-hidden select-none">
+        <!-- Background Grid Structural Lines -->
+        <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
             <canvas id="hero-grid-canvas" class="w-full h-full"></canvas>
         </div>
-        
-        <!-- Subtle Glow Filter effect -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[150px] pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-12">
-            <!-- Left Intro Content -->
-            <div class="lg:col-span-7 space-y-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10 text-xs tracking-wider text-white uppercase">
-                    <span class="flex h-2 w-2 relative">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                    </span>
-                    Computational Architectural Designer
-                </div>
-                
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-tight">
-                    Form Follows <br>
-                    <span class="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white">
-                        Computational Logic.
-                    </span>
-                </h1>
-                
-                <p class="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-xl">
-                    컴퓨테이셔널 알고리즘과 지속 가능성을 접목하여 대지가 가진 제약 조건을 형태적 최적화로 번역합니다. 데이터로 맥락을 정의하고 정교한 파라메트릭 제어로 건축적 가치를 극대화합니다.
-                </p>
+        <!-- Top spacing filler -->
+        <div></div>
 
-                <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="#portfolio" class="px-8 py-4 bg-white text-black font-semibold tracking-wider text-xs hover:bg-gray-200 transition-all duration-300 shadow-lg shadow-white/5">
-                        PROJECTS VIEW <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </a>
-                    <a href="#lab" class="px-8 py-4 border border-white/20 hover:border-white text-white font-semibold tracking-wider text-xs transition-all duration-300 bg-white/5">
-                        TRY EXPERIMENTAL LAB
+        <!-- Giant Navigation Menu Stack (Centerpiece) -->
+        <div class="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center justify-center my-auto py-12">
+            <div class="flex flex-col items-center space-y-3 md:space-y-4 w-full">
+                
+                <!-- Menu Item: HOME -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#hero')">
+                    <!-- SVG Loop Accent (appears on active state or hover) -->
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 50C15 25 100 12 200 12C300 12 385 25 385 50C385 75 300 88 200 88C100 88 15 75 15 50C15 40 40 25 100 20" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <!-- Menu Text -->
+                    <a href="#hero" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        HOME
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">01 / VIEW HUB</span>
                     </a>
                 </div>
+
+                <!-- Menu Item: PROJECTS -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#portfolio')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 48C12 22 98 10 202 10C306 10 388 22 388 48C388 74 306 88 202 88C98 88 12 74 12 48" stroke="#cbf300" stroke-width="3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#portfolio" class="relative z-10 text-4xl md:text-7xl font-sans font-extrabold tracking-tight text-inkDark group-hover:font-serif group-hover:italic group-hover:font-light transition-all duration-300 flex items-center gap-4">
+                        PROJECTS
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">02 / PORTFOLIO</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: LAB -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#lab')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 52C18 28 105 14 198 14C291 14 382 28 382 52C382 76 291 86 198 86C105 86 18 76 18 52" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#lab" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        PROCESS LAB
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">03 / PARAMETRICS</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: ABOUT -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#about')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 50C15 25 100 12 200 12C300 12 385 25 385 50C385 75 300 88 200 88C100 88 15 75 15 50" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#about" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        ABOUT
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">04 / PROFILE</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: GUESTBOOK -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#guestbook')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 50C10 24 95 12 200 12C305 12 390 24 390 50C390 76 305 88 200 88C95 88 10 76 10 50" stroke="#cbf300" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#guestbook" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        GUESTBOOK
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">05 / TRACE</span>
+                    </a>
+                </div>
+
+                <!-- Menu Item: CONTACT -->
+                <div class="relative group cursor-pointer py-1.5 flex items-center justify-center w-full" onclick="smoothScrollTo('#contact')">
+                    <div class="absolute -inset-x-8 -inset-y-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-0">
+                        <svg class="w-72 md:w-96 h-16 md:h-24 hand-drawn-svg" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 48C14 22 98 10 200 10C302 10 386 22 386 48C386 74 302 90 200 90C98 90 14 74 14 48" stroke="#cbf300" stroke-width="3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <a href="#contact" class="relative z-10 text-4xl md:text-7xl font-sans font-light tracking-tight text-inkDark group-hover:font-serif group-hover:italic transition-all duration-300 flex items-center gap-4">
+                        CONTACT
+                        <span class="text-xs font-mono font-normal tracking-widest text-inkGray opacity-0 group-hover:opacity-100 transition-all duration-300">06 / COLLABORATE</span>
+                    </a>
+                </div>
+
             </div>
+        </div>
 
-            <!-- Right Visual Panel (Interactive Architectural Wireframe teaser) -->
-            <div class="lg:col-span-5 relative flex justify-center items-center">
-                <div class="w-full max-w-[420px] aspect-[4/5] glass-panel rounded-lg p-6 relative flex flex-col justify-between overflow-hidden shadow-2xl border-white/10 group">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-40 transition-opacity duration-300 text-5xl font-extrabold text-white">
-                        01
-                    </div>
-                    <div>
-                        <div class="text-xs text-white tracking-widest font-mono uppercase mb-1">Interactive Showcase</div>
-                        <h3 class="text-xl font-semibold text-white tracking-wide">Dynamic Structural Rig</h3>
-                        <p class="text-xs text-gray-500 mt-1 font-mono">Real-time parametric geometry parser</p>
-                    </div>
-
-                    <!-- Mini Visual Canvas -->
-                    <div class="my-6 relative flex-1 min-h-[220px] flex items-center justify-center">
-                        <canvas id="mini-hero-canvas" class="w-full h-full cursor-pointer absolute top-0 left-0"></canvas>
-                        <div class="absolute bottom-2 text-[10px] text-gray-500 font-mono tracking-widest pointer-events-none">CLICK OR DRAG CANVAS TO TWIST</div>
-                    </div>
-
-                    <div class="border-t border-white/10 pt-4 flex justify-between items-center text-xs text-gray-400 font-mono">
-                        <div>
-                            <span>SCALE:</span> <span class="text-white">1:150</span>
-                        </div>
-                        <div>
-                            <span>COORD:</span> <span class="text-white">ALG-001</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Minimal Footer Index (Bottom) -->
+        <div class="relative z-10 flex justify-between items-center text-xs font-mono text-inkGray border-t border-inkDark/10 pt-6">
+            <div class="flex gap-6">
+                <a href="https://linkedin.com" target="_blank" class="hover:text-inkDark transition-colors">LINKEDIN</a>
+                <a href="https://instagram.com" target="_blank" class="hover:text-inkDark transition-colors">INSTAGRAM</a>
+                <a href="https://behance.net" target="_blank" class="hover:text-inkDark transition-colors">BEHANCE</a>
+                <a href="https://github.com" target="_blank" class="hover:text-inkDark transition-colors">GITHUB</a>
+            </div>
+            <div class="hidden sm:block">
+                COMPUTATIONAL PORTFOLIO INDEX © 2026
             </div>
         </div>
     </section>
 
-    <!-- Architectural Projects Section (Elevated to Primary Position) -->
-    <section id="portfolio" class="py-24 bg-black relative border-t border-white/5">
-        <div class="absolute inset-0 bg-[radial-gradient(#ffffff01_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
+    <!-- Architectural Projects Section -->
+    <section id="portfolio" class="py-24 bg-paperLight relative border-t border-inkDark/10">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             
             <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
                 <div class="space-y-4">
-                    <div class="text-white tracking-[0.2em] text-xs font-semibold uppercase flex items-center gap-2">
-                        <span class="inline-block w-8 h-[1px] bg-white"></span> Selected Architectural Works
+                    <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase flex items-center gap-2">
+                        <span class="inline-block w-8 h-[1px] bg-inkDark"></span> Selected Architectural Works
                     </div>
-                    <h2 class="text-4xl md:text-6xl font-light text-white tracking-tight">Featured Projects</h2>
-                    <p class="text-gray-400 font-light max-w-xl text-sm md:text-base">
+                    <h2 class="text-4xl md:text-6xl font-light text-inkDark tracking-tight">Featured Projects</h2>
+                    <p class="text-inkGray font-light max-w-xl text-sm md:text-base">
                         알고리즘 연산과 대지 기하학 분석을 거쳐 설계된 실물 기반 파라메트릭 프로젝트 및 공모전 당선 제안서 라인업입니다.
                     </p>
                 </div>
                 
                 <!-- Filter Tabs -->
                 <div class="flex flex-wrap gap-2 text-xs tracking-widest font-mono">
-                    <button class="filter-btn px-4 py-2.5 bg-white text-black border border-white font-bold transition-all" data-filter="all">ALL WORKS</button>
-                    <button class="filter-btn px-4 py-2.5 border border-white/10 text-gray-400 hover:text-white hover:border-white transition-all" data-filter="residential">RESIDENTIAL</button>
-                    <button class="filter-btn px-4 py-2.5 border border-white/10 text-gray-400 hover:text-white hover:border-white transition-all" data-filter="public">PUBLIC & CULTURE</button>
-                    <button class="filter-btn px-4 py-2.5 border border-white/10 text-gray-400 hover:text-white hover:border-white transition-all" data-filter="experimental">EXPERIMENTAL</button>
+                    <button class="filter-btn px-4 py-2.5 bg-inkDark text-paperBg border border-inkDark font-bold transition-all" data-filter="all">ALL WORKS</button>
+                    <button class="filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all" data-filter="residential">RESIDENTIAL</button>
+                    <button class="filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all" data-filter="public">PUBLIC & CULTURE</button>
+                    <button class="filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all" data-filter="experimental">EXPERIMENTAL</button>
                 </div>
             </div>
 
             <!-- Spotlight Signature Work (Huge Hero Banner) -->
-            <div class="mb-12 border border-white/10 bg-white/5 rounded-lg overflow-hidden flex flex-col lg:flex-row items-stretch shadow-2xl transition-all hover:border-white/25 group">
+            <div class="mb-12 border border-inkDark/12 bg-paperBg rounded-lg overflow-hidden flex flex-col lg:flex-row items-stretch shadow-xl transition-all hover:border-inkDark/25 group">
                 <!-- Large Image Panel -->
-                <div class="lg:w-7/12 relative min-h-[350px] overflow-hidden bg-archGray">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="The Twist Residential Tower" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" onerror="this.src='https://placehold.co/1200x800/0d0d0d/fff?text=Signature+Project'">
-                    <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black via-black/30 to-transparent"></div>
-                    <div class="absolute top-6 left-6 px-4 py-1.5 bg-white text-black font-mono text-[10px] font-bold tracking-widest uppercase rounded-sm">
-                        SIGNATURE SIGN SPOTLIGHT
+                <div class="lg:w-7/12 relative min-h-[350px] overflow-hidden bg-paperBg/50">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="The Twist Residential Tower" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" onerror="this.src='https://placehold.co/1200x800/e2e1dd/000?text=Signature+Project'">
+                    <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-paperBg via-paperBg/20 to-transparent"></div>
+                    <div class="absolute top-6 left-6 px-4 py-1.5 bg-inkDark text-paperBg font-mono text-[10px] font-bold tracking-widest uppercase rounded-sm">
+                        SIGNATURE SPOTLIGHT
                     </div>
                 </div>
                 <!-- Metadata & Info Panel -->
                 <div class="lg:w-5/12 p-8 lg:p-12 flex flex-col justify-between space-y-6">
                     <div class="space-y-4">
-                        <div class="flex items-center gap-3 text-xs font-mono text-gray-400">
+                        <div class="flex items-center gap-3 text-xs font-mono text-inkGray">
                             <span>SEOUL, KOREA</span>
                             <span>•</span>
                             <span>2025</span>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-white tracking-wide group-hover:text-gray-300 transition-colors">The Twist Residential Tower</h3>
-                        <p class="text-sm text-gray-400 font-light leading-relaxed">
+                        <h3 class="text-2xl md:text-3xl font-bold text-inkDark tracking-wide group-hover:text-inkGray transition-colors">The Twist Residential Tower</h3>
+                        <p class="text-sm text-inkGray font-light leading-relaxed">
                             일조 변수값 분석 및 형태 최적화 알고리즘 기반으로 도출한 기하학적 비정형 고층 공동주택 프로젝트. 가구별 평면 각도를 미세 조정하여 대지 제약을 극적인 주거 효율로 승화시켰습니다.
                         </p>
                     </div>
 
                     <!-- Computational Data Dashboard Box -->
-                    <div class="grid grid-cols-2 gap-4 border-y border-white/10 py-4 font-mono text-xs">
+                    <div class="grid grid-cols-2 gap-4 border-y border-inkDark/10 py-4 font-mono text-xs">
                         <div>
-                            <span class="text-gray-500 block">ALGORITHMIC GAIN</span>
-                            <span class="text-white font-bold text-sm">+14.5% Solar Efficiency</span>
+                            <span class="text-inkGray block">ALGORITHMIC GAIN</span>
+                            <span class="text-inkDark font-bold text-sm">+14.5% Solar Efficiency</span>
                         </div>
                         <div>
-                            <span class="text-gray-500 block">WIND SHEAR RESIST.</span>
-                            <span class="text-white font-bold text-sm">Optimal Performance</span>
+                            <span class="text-inkGray block">WIND SHEAR RESIST.</span>
+                            <span class="text-inkDark font-bold text-sm">Optimal Performance</span>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-between pt-2">
-                        <span class="text-xs font-mono text-gray-400">GFA: <strong>45,200㎡</strong></span>
-                        <button onclick="openModal('twist-tower')" class="px-6 py-3 bg-white text-black hover:bg-gray-200 transition-all font-semibold font-mono text-xs tracking-wider flex items-center gap-2">
+                        <span class="text-xs font-mono text-inkGray">GFA: <strong>45,200㎡</strong></span>
+                        <button onclick="openModal('twist-tower')" class="px-6 py-3 bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all font-semibold font-mono text-xs tracking-wider flex items-center gap-2">
                             EXPLORE CASE STUDY <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </button>
                     </div>
@@ -250,91 +279,91 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
                 
                 <!-- Project 02 -->
-                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-xl flex flex-col justify-between transition-all duration-300" data-category="public">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-archGray">
-                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Metropolitan Culture Node" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-90" onerror="this.src='https://placehold.co/800x600/1a1d24/fff?text=Cultural+Node'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 px-3 py-1 bg-white/95 text-black text-[10px] font-mono font-bold tracking-widest uppercase">Built Competition</span>
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="public">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Metropolitan Culture Node" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Cultural+Node'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Built Competition</span>
                     </div>
                     <div class="p-6 space-y-3">
-                        <span class="text-[11px] font-mono text-white tracking-widest uppercase">Busan, South Korea | 2024</span>
-                        <h3 class="text-xl font-bold text-white group-hover:text-gray-300 transition-colors">Metropolitan Culture Hub</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">제한된 50m x 50m의 사이트에서 열린 흐름의 중정을 지향하는 도심지 다목적 문화 공용관 기획안.</p>
-                        <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs font-mono">
-                            <span class="text-gray-500">Site Area: <strong class="text-gray-300">2,500㎡</strong></span>
-                            <button onclick="openModal('culture-hub')" class="text-white hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Busan, South Korea | 2024</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Metropolitan Culture Hub</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">제한된 50m x 50m의 사이트에서 열린 흐름의 중정을 지향하는 도심지 다목적 문화 공용관 기획안.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Site Area: <strong class="text-inkDark">2,500㎡</strong></span>
+                            <button onclick="openModal('culture-hub')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 03 -->
-                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-xl flex flex-col justify-between transition-all duration-300" data-category="experimental">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-archGray">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Eco Responsive Envelope" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-90" onerror="this.src='https://placehold.co/800x600/1a1d24/fff?text=Eco+Envelope'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 px-3 py-1 bg-white/95 text-black text-[10px] font-mono font-bold tracking-widest uppercase">Research Lab</span>
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="experimental">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Eco Responsive Envelope" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Eco+Envelope'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Research Lab</span>
                     </div>
                     <div class="p-6 space-y-3">
-                        <span class="text-[11px] font-mono text-white tracking-widest uppercase">Zurich, Switzerland | 2026</span>
-                        <h3 class="text-xl font-bold text-white group-hover:text-archAccent transition-colors">The Responsive Kinetic Pavilion</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">조도 센서에 연동하여 자율 회전 작동하는 이중 외피 키네틱 모듈 파빌리온 및 구조 로직 구현 실험.</p>
-                        <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs font-mono">
-                            <span class="text-gray-500">Materials: <strong class="text-gray-300">CNC Oak, Servos</strong></span>
-                            <button onclick="openModal('kinetic-pavilion')" class="text-white hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Zurich, Switzerland | 2026</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">The Responsive Kinetic Pavilion</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">조도 센서에 연동하여 자율 회전 작동하는 이중 외피 키네틱 모듈 파빌리온 및 구조 로직 구현 실험.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Materials: <strong class="text-inkDark">CNC Oak, Servos</strong></span>
+                            <button onclick="openModal('kinetic-pavilion')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 04 -->
-                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-xl flex flex-col justify-between transition-all duration-300" data-category="residential">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-archGray">
-                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Topographic Villa Complex" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-90" onerror="this.src='https://placehold.co/800x600/1a1d24/fff?text=Topographic+Villa'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 px-3 py-1 bg-white/95 text-black text-[10px] font-mono font-bold tracking-widest uppercase">Residential Work</span>
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="residential">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Topographic Villa Complex" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Topographic+Villa'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Residential Work</span>
                     </div>
                     <div class="p-6 space-y-3">
-                        <span class="text-[11px] font-mono text-white tracking-widest uppercase">Jeju, South Korea | 2025</span>
-                        <h3 class="text-xl font-bold text-white group-hover:text-archAccent transition-colors">Topographic Villa Complex</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">지형 등고선을 물리 알고리즘으로 시각화하고 산림 훼손을 줄이도록 매스를 변형 분할한 프리미엄 단독주택지.</p>
-                        <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs font-mono">
-                            <span class="text-gray-500">Scale: <strong class="text-gray-300">12 Residential Units</strong></span>
-                            <button onclick="openModal('topo-villa')" class="text-white hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Jeju, South Korea | 2025</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Topographic Villa Complex</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">지형 등고선을 물리 알고리즘으로 시각화하고 산림 훼손을 줄이도록 매스를 변형 분할한 프리미엄 단독주택지.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Scale: <strong class="text-inkDark">12 Units</strong></span>
+                            <button onclick="openModal('topo-villa')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 05 -->
-                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-xl flex flex-col justify-between transition-all duration-300" data-category="public">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-archGray">
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Sustainable Waterfront Library" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-90" onerror="this.src='https://placehold.co/800x600/1a1d24/fff?text=Waterfront+Library'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 px-3 py-1 bg-white/95 text-black text-[10px] font-mono font-bold tracking-widest uppercase">Concept Proposal</span>
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="public">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Sustainable Waterfront Library" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Waterfront+Library'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Concept Proposal</span>
                     </div>
                     <div class="p-6 space-y-3">
-                        <span class="text-[11px] font-mono text-white tracking-widest uppercase">Incheon, South Korea | 2024</span>
-                        <h3 class="text-xl font-bold text-white group-hover:text-archAccent transition-colors">Eco Waterfront Library</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">바다와 대지의 교차 영역에 위치하여 수력 에너지 냉각 순환을 도입한 다이어그램 기반 친환경 도서관 제안서.</p>
-                        <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs font-mono">
-                            <span class="text-gray-500">Gross Floor Area: <strong class="text-gray-300">18,900㎡</strong></span>
-                            <button onclick="openModal('waterfront-library')" class="text-white hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Incheon, South Korea | 2024</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Eco Waterfront Library</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">바다와 대지의 교차 영역에 위치하여 수력 에너지 냉각 순환을 도입한 다이어그램 기반 친환경 도서관 제안서.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">GFA: <strong class="text-inkDark">18,900㎡</strong></span>
+                            <button onclick="openModal('waterfront-library')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 06 -->
-                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-xl flex flex-col justify-between transition-all duration-300" data-category="experimental">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-archGray">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Generative Spatial Planner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-90" onerror="this.src='https://placehold.co/800x600/1a1d24/fff?text=Generative+Layout'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 px-3 py-1 bg-white/95 text-black text-[10px] font-mono font-bold tracking-widest uppercase">GhPython Scripting</span>
+                <div class="portfolio-item glass-panel group overflow-hidden rounded-lg shadow-lg flex flex-col justify-between transition-all duration-300" data-category="experimental">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-paperBg">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Generative Spatial Planner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/800x600/e2e1dd/121212?text=Generative+Layout'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-paperBg/90 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 bg-inkDark text-paperBg text-[10px] font-mono font-bold tracking-widest uppercase">Scripting R&D</span>
                     </div>
                     <div class="p-6 space-y-3">
-                        <span class="text-[11px] font-mono text-white tracking-widest uppercase">Cloud Compute | 2026</span>
-                        <h3 class="text-xl font-bold text-white group-hover:text-archAccent transition-colors">Generative Spatial Planner</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">파이썬 알고리즘으로 부실의 배치 최적 경로를 우선 분석해 실시간 조닝 레이아웃을 생성하는 그래스호퍼 툴체인.</p>
-                        <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs font-mono">
-                            <span class="text-gray-500">Language: <strong class="text-gray-300">Python, Grasshopper</strong></span>
-                            <button onclick="openModal('gen-planner')" class="text-white hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        <span class="text-[11px] font-mono text-inkGray tracking-widest uppercase">Cloud Compute | 2026</span>
+                        <h3 class="text-xl font-bold text-inkDark group-hover:text-inkGray transition-colors">Generative Spatial Planner</h3>
+                        <p class="text-xs text-inkGray leading-relaxed line-clamp-2">파이썬 알고리즘으로 부실의 배치 최적 경로를 우선 분석해 실시간 조닝 레이아웃을 생성하는 그래스호퍼 툴체인.</p>
+                        <div class="pt-4 border-t border-inkDark/5 flex justify-between items-center text-xs font-mono">
+                            <span class="text-inkGray">Language: <strong class="text-inkDark">Python, GH</strong></span>
+                            <button onclick="openModal('gen-planner')" class="text-inkDark hover:underline flex items-center gap-1.5 font-bold">VIEW CASE <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                         </div>
                     </div>
                 </div>
@@ -344,92 +373,91 @@
     </section>
 
     <!-- Computational Architecture Laboratory Section -->
-    <section id="lab" class="py-24 bg-archGray border-y border-white/5 relative">
-        <div class="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+    <section id="lab" class="py-24 bg-paperBg border-y border-inkDark/10 relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <div class="text-white tracking-[0.2em] text-xs font-semibold uppercase">03 / Algorithm & Logic</div>
-                <h2 class="text-3xl md:text-5xl font-light text-white tracking-tight">Parametric Studio Lab</h2>
-                <div class="w-16 h-[2px] bg-white mx-auto"></div>
-                <p class="text-gray-400 font-light text-sm md:text-base">
+                <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">03 / Algorithm & Logic</div>
+                <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Parametric Studio Lab</h2>
+                <div class="w-16 h-[1px] bg-inkDark mx-auto"></div>
+                <p class="text-inkGray font-light text-sm md:text-base">
                     직접 변수 값들을 조절하며 형태의 기하학적 변화와 일조 환경 최적화 매스 시뮬레이션을 모의 분석해보세요. 위 대표 포트폴리오 프로젝트들이 구축된 근간 파라메트릭 제어 엔진입니다.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
                 <!-- Parameters Controls Panel -->
-                <div class="lg:col-span-4 flex flex-col justify-between glass-panel p-8 rounded-lg shadow-xl relative overflow-hidden">
+                <div class="lg:col-span-4 flex flex-col justify-between glass-panel p-8 rounded-lg shadow-xl relative overflow-hidden bg-paperLight/60">
                     <div class="space-y-6">
-                        <div class="flex items-center gap-2 border-b border-white/10 pb-4">
-                            <i class="fa-solid fa-sliders text-white text-lg"></i>
-                            <h3 class="text-lg font-bold text-white tracking-wider font-mono">PARAMETER MANAGER</h3>
+                        <div class="flex items-center gap-2 border-b border-inkDark/10 pb-4">
+                            <i class="fa-solid fa-sliders text-inkDark text-lg"></i>
+                            <h3 class="text-lg font-bold text-inkDark tracking-wider font-mono">PARAMETER MANAGER</h3>
                         </div>
 
                         <!-- Param 1: Height / Floors -->
                         <div class="space-y-2">
                             <div class="flex justify-between text-xs font-mono">
-                                <span class="text-gray-400">Target Floors (높이)</span>
-                                <span class="text-white font-bold" id="val-floors">25 Layers</span>
+                                <span class="text-inkGray">Target Floors (높이)</span>
+                                <span class="text-inkDark font-bold" id="val-floors">25 Layers</span>
                             </div>
-                            <input type="range" id="param-floors" min="5" max="45" value="25" class="w-full accent-white h-1 bg-white/10 rounded-lg cursor-pointer">
+                            <input type="range" id="param-floors" min="5" max="45" value="25" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
                         </div>
 
                         <!-- Param 2: Twist Angle -->
                         <div class="space-y-2">
                             <div class="flex justify-between text-xs font-mono">
-                                <span class="text-gray-400">Twist Rotation (트위스트)</span>
-                                <span class="text-white font-bold" id="val-twist">90°</span>
+                                <span class="text-inkGray">Twist Rotation (트위스트)</span>
+                                <span class="text-inkDark font-bold" id="val-twist">90°</span>
                             </div>
-                            <input type="range" id="param-twist" min="0" max="360" value="90" class="w-full accent-white h-1 bg-white/10 rounded-lg cursor-pointer">
+                            <input type="range" id="param-twist" min="0" max="360" value="90" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
                         </div>
 
                         <!-- Param 3: Taper Scale -->
                         <div class="space-y-2">
                             <div class="flex justify-between text-xs font-mono">
-                                <span class="text-gray-400">Taper Scale (테이퍼링)</span>
-                                <span class="text-white font-bold" id="val-taper">0.6x</span>
+                                <span class="text-inkGray">Taper Scale (테이퍼링)</span>
+                                <span class="text-inkDark font-bold" id="val-taper">0.6x</span>
                             </div>
-                            <input type="range" id="param-taper" min="20" max="150" value="60" class="w-full accent-white h-1 bg-white/10 rounded-lg cursor-pointer">
+                            <input type="range" id="param-taper" min="20" max="150" value="60" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
                         </div>
 
                         <!-- Param 4: Wave Amplitude -->
                         <div class="space-y-2">
                             <div class="flex justify-between text-xs font-mono">
-                                <span class="text-gray-400">Facade Wave (파사드 기복)</span>
-                                <span class="text-white font-bold" id="val-wave">3.0</span>
+                                <span class="text-inkGray">Facade Wave (파사드 기복)</span>
+                                <span class="text-inkDark font-bold" id="val-wave">3.0</span>
                             </div>
-                            <input type="range" id="param-wave" min="0" max="100" value="30" class="w-full accent-white h-1 bg-white/10 rounded-lg cursor-pointer">
+                            <input type="range" id="param-wave" min="0" max="100" value="30" class="w-full accent-inkDark h-1 bg-inkDark/10 rounded-lg cursor-pointer">
                         </div>
                     </div>
 
                     <!-- Readouts -->
-                    <div class="mt-8 pt-6 border-t border-white/10 space-y-3 text-xs font-mono">
-                        <div class="flex justify-between text-gray-500">
+                    <div class="mt-8 pt-6 border-t border-inkDark/10 space-y-3 text-xs font-mono">
+                        <div class="flex justify-between text-inkGray">
                             <span>Total Surface Area:</span>
-                            <span class="text-white" id="stat-surface">14,352㎡</span>
+                            <span class="text-inkDark" id="stat-surface">14,352㎡</span>
                         </div>
-                        <div class="flex justify-between text-gray-500">
+                        <div class="flex justify-between text-inkGray">
                             <span>Solar Radiation Gain:</span>
-                            <span class="text-green-400" id="stat-solar">Optimal (-14%)</span>
+                            <span class="text-inkDark font-bold" id="stat-solar">Optimal (-14%)</span>
                         </div>
-                        <div class="flex justify-between text-gray-500">
+                        <div class="flex justify-between text-inkGray">
                             <span>Algorithm Core:</span>
-                            <span class="text-gray-300">GhPython v2.61</span>
+                            <span class="text-inkGray">GhPython v2.61</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Simulation Output Window (Canvas) -->
-                <div class="lg:col-span-8 glass-panel rounded-lg shadow-xl relative overflow-hidden flex flex-col justify-between p-6 min-h-[450px]">
+                <div class="lg:col-span-8 glass-panel rounded-lg shadow-xl relative overflow-hidden flex flex-col justify-between p-6 min-h-[450px] bg-paperLight/60">
                     <div class="absolute top-4 left-6 flex items-center gap-3 z-20">
-                        <div class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></div>
-                        <span class="text-xs font-mono tracking-widest text-gray-400">LIVE MASS SIMULATION (3D PERSPECTIVE)</span>
+                        <div class="w-2.5 h-2.5 rounded-full bg-inkDark animate-pulse"></div>
+                        <span class="text-xs font-mono tracking-widest text-inkGray">LIVE MASS SIMULATION (3D PERSPECTIVE)</span>
                     </div>
 
                     <div class="absolute top-4 right-6 flex gap-2 z-20">
-                        <button id="btn-wireframe" class="px-2.5 py-1 text-[10px] font-mono rounded bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10">WIREFRAME</button>
-                        <button id="btn-shaded" class="px-2.5 py-1 text-[10px] font-mono rounded bg-white/20 text-white hover:bg-white/30 transition-all border border-white/20">SOLID RENDER</button>
+                        <button id="btn-wireframe" class="px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark/5 text-inkDark hover:bg-inkDark/10 transition-all border border-inkDark/10">WIREFRAME</button>
+                        <button id="btn-shaded" class="px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all border border-inkDark/20">SOLID RENDER</button>
                     </div>
 
                     <!-- Interactive Main Visualizer Canvas -->
@@ -437,29 +465,29 @@
                         <canvas id="main-lab-canvas" class="w-full h-full cursor-grab active:cursor-grabbing absolute inset-0 z-10"></canvas>
                         
                         <!-- Mini Legend/Scale Axis -->
-                        <div class="absolute bottom-4 left-4 z-20 font-mono text-[9px] text-gray-500 bg-black/40 px-3 py-2 rounded border border-white/5 space-y-1">
-                            <div><span class="inline-block w-2 h-0.5 bg-red-500 mr-1"></span> X-Axis (East)</div>
-                            <div><span class="inline-block w-2 h-0.5 bg-green-500 mr-1"></span> Y-Axis (North)</div>
-                            <div><span class="inline-block w-2 h-0.5 bg-blue-500 mr-1"></span> Z-Axis (Altitude)</div>
+                        <div class="absolute bottom-4 left-4 z-20 font-mono text-[9px] text-inkGray bg-paperBg/80 px-3 py-2 rounded border border-inkDark/5 space-y-1">
+                            <div><span class="inline-block w-2 h-0.5 bg-red-600 mr-1"></span> X-Axis (East)</div>
+                            <div><span class="inline-block w-2 h-0.5 bg-emerald-600 mr-1"></span> Y-Axis (North)</div>
+                            <div><span class="inline-block w-2 h-0.5 bg-blue-600 mr-1"></span> Z-Axis (Altitude)</div>
                         </div>
-                        <div class="absolute bottom-4 right-4 z-20 font-mono text-[9px] text-gray-400 pointer-events-none bg-black/60 px-2 py-1 rounded">
+                        <div class="absolute bottom-4 right-4 z-20 font-mono text-[9px] text-inkGray pointer-events-none bg-paperBg/80 px-2 py-1 rounded">
                             DRAG TO ROTATE VIEW
                         </div>
                     </div>
 
                     <!-- Analysis Output Panel footer -->
-                    <div class="border-t border-white/10 pt-4 mt-4 flex flex-wrap gap-4 items-center justify-between z-20">
+                    <div class="border-t border-inkDark/10 pt-4 mt-4 flex flex-wrap gap-4 items-center justify-between z-20">
                         <div class="flex items-center gap-6">
                             <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-white"></span>
-                                <span class="text-[11px] font-mono text-gray-400">Algorithmic Optimization</span>
+                                <span class="w-2 h-2 rounded-full bg-inkDark"></span>
+                                <span class="text-[11px] font-mono text-inkGray">Algorithmic Optimization</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-                                <span class="text-[11px] font-mono text-gray-400">Active Wind Shear Reduction</span>
+                                <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                <span class="text-[11px] font-mono text-inkGray">Active Wind Shear Reduction</span>
                             </div>
                         </div>
-                        <button id="btn-export-mesh" class="px-4 py-2 bg-white/5 hover:bg-white/15 text-white border border-white/10 text-[11px] font-mono tracking-wider transition-all flex items-center gap-1.5">
+                        <button id="btn-export-mesh" class="px-4 py-2 bg-inkDark/5 hover:bg-inkDark/10 text-inkDark border border-inkDark/10 text-[11px] font-mono tracking-wider transition-all flex items-center gap-1.5">
                             <i class="fa-solid fa-download"></i> EXPORT CONFIG (.JSON)
                         </button>
                     </div>
@@ -470,98 +498,97 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 bg-black border-t border-white/5 relative">
-        <div class="absolute inset-0 bg-[radial-gradient(#ffffff02_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+    <section id="about" class="py-24 bg-paperLight relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <!-- Left Details -->
                 <div class="lg:col-span-5 space-y-6">
-                    <div class="text-white tracking-[0.2em] text-xs font-semibold uppercase">04 / Computational Profile</div>
-                    <h2 class="text-3xl md:text-5xl font-light text-white tracking-tight">Computational Craftsmanship</h2>
-                    <div class="w-16 h-[2px] bg-white"></div>
-                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                    <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">04 / Computational Profile</div>
+                    <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Computational Craftsmanship</h2>
+                    <div class="w-16 h-[1px] bg-inkDark"></div>
+                    <p class="text-inkGray text-sm md:text-base leading-relaxed font-light">
                         안녕하세요, 컴퓨테이셔널 아키텍트 **민수홍**입니다. 
                         단순한 조형적 아름다움을 넘어 기후 분석, 최적의 동선 알고리즘, 구조적 시뮬레이션을 형태 디자인과 연동시키는 프로세스를 다룹니다.
                     </p>
-                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                    <p class="text-inkGray text-sm md:text-base leading-relaxed font-light">
                         Rhino, Grasshopper, Python을 도구 삼아 물리 기반 시뮬레이션 및 데이터 주도 패널라이징 등을 전문적으로 연구 및 수행해왔습니다. 대지와 자재, 기후의 파라미터를 하나의 유기체적인 공간 시스템으로 통합해 나가는 것이 핵심 작업 목표입니다.
                     </p>
                     
                     <div class="pt-4 grid grid-cols-2 gap-4">
-                        <div class="p-4 bg-white/5 border border-white/5 rounded">
-                            <div class="text-white text-2xl font-bold font-mono">08+</div>
-                            <div class="text-xs text-gray-400 mt-1 font-mono uppercase">Years Experience</div>
+                        <div class="p-4 bg-paperBg border border-inkDark/10 rounded">
+                            <div class="text-inkDark text-2xl font-bold font-mono">08+</div>
+                            <div class="text-xs text-inkGray mt-1 font-mono uppercase">Years Experience</div>
                         </div>
-                        <div class="p-4 bg-white/5 border border-white/5 rounded">
-                            <div class="text-white text-2xl font-bold font-mono">24+</div>
-                            <div class="text-xs text-gray-400 mt-1 font-mono uppercase">Built & Research</div>
+                        <div class="p-4 bg-paperBg border border-inkDark/10 rounded">
+                            <div class="text-inkDark text-2xl font-bold font-mono">24+</div>
+                            <div class="text-xs text-inkGray mt-1 font-mono uppercase">Built & Research</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right Computational Flowchart Layout -->
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="glass-panel p-6 rounded-lg space-y-6">
-                        <h4 class="text-white tracking-widest font-mono text-sm border-b border-white/10 pb-3 uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-diagram-project text-white"></i> EXPERT METHODOLOGY & STACK
+                    <div class="glass-panel p-6 rounded-lg space-y-6 bg-paperBg/50 border border-inkDark/10">
+                        <h4 class="text-inkDark tracking-widest font-mono text-sm border-b border-inkDark/10 pb-3 uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-diagram-project text-inkDark"></i> EXPERT METHODOLOGY & STACK
                         </h4>
                         
                         <div class="space-y-4">
                             <!-- Skill 1 -->
                             <div class="space-y-1">
                                 <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-gray-300">Grasshopper & Parametric Engineering</span>
-                                    <span class="text-white">95%</span>
+                                    <span class="text-inkGray">Grasshopper & Parametric Engineering</span>
+                                    <span class="text-inkDark font-bold">95%</span>
                                 </div>
-                                <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-white h-full rounded-full" style="width: 95%"></div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 95%"></div>
                                 </div>
                             </div>
                             
                             <!-- Skill 2 -->
                             <div class="space-y-1">
                                 <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-gray-300">Python Scripting (GhPython & Web Automation)</span>
-                                    <span class="text-white">88%</span>
+                                    <span class="text-inkGray">Python Scripting (GhPython & Web Automation)</span>
+                                    <span class="text-inkDark font-bold">88%</span>
                                 </div>
-                                <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-white h-full rounded-full" style="width: 88%"></div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 88%"></div>
                                 </div>
                             </div>
 
                             <!-- Skill 3 -->
                             <div class="space-y-1">
                                 <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-gray-300">Performance Simulation (Solar Radiation & Wind Load)</span>
-                                    <span class="text-white">85%</span>
+                                    <span class="text-inkGray">Performance Simulation (Solar Radiation & Wind Load)</span>
+                                    <span class="text-inkDark font-bold">85%</span>
                                 </div>
-                                <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-white h-full rounded-full" style="width: 85%"></div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 85%"></div>
                                 </div>
                             </div>
 
                             <!-- Skill 4 -->
                             <div class="space-y-1">
                                 <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-gray-300">Dynamic UI & Pseudo-3D Canvas Engines</span>
-                                    <span class="text-white">80%</span>
+                                    <span class="text-inkGray">Dynamic UI & Pseudo-3D Canvas Engines</span>
+                                    <span class="text-inkDark font-bold">80%</span>
                                 </div>
-                                <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-white h-full rounded-full" style="width: 80%"></div>
+                                <div class="w-full bg-inkDark/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-inkDark h-full rounded-full" style="width: 80%"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Technical Tools Grid -->
-                        <div class="pt-6 border-t border-white/10">
-                            <div class="text-xs text-gray-500 font-mono tracking-widest uppercase mb-3">SOFTWARE SYSTEM INTEGRATION</div>
+                        <div class="pt-6 border-t border-inkDark/10">
+                            <div class="text-xs text-inkGray font-mono tracking-widest uppercase mb-3">SOFTWARE SYSTEM INTEGRATION</div>
                             <div class="flex flex-wrap gap-2 text-xs font-mono">
-                                <span class="px-2.5 py-1 bg-white/5 rounded border border-white/10 text-gray-300">Rhino 3D</span>
-                                <span class="px-2.5 py-1 bg-white/5 rounded border border-white/10 text-gray-300">Grasshopper 3D</span>
-                                <span class="px-2.5 py-1 bg-white/5 rounded border border-white/10 text-gray-300">GhPython</span>
-                                <span class="px-2.5 py-1 bg-white/5 rounded border border-white/10 text-gray-300">Ladybug & Honeybee</span>
-                                <span class="px-2.5 py-1 bg-white/5 rounded border border-white/10 text-gray-300">Kangaroo Physics</span>
-                                <span class="px-2.5 py-1 bg-white/5 rounded border border-white/10 text-gray-300">HTML5 Canvas API</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Rhino 3D</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Grasshopper 3D</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">GhPython</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Ladybug & Honeybee</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">Kangaroo Physics</span>
+                                <span class="px-2.5 py-1 bg-inkDark/5 rounded border border-inkDark/10 text-inkDark">HTML5 Canvas API</span>
                             </div>
                         </div>
                     </div>
@@ -571,144 +598,116 @@
     </section>
 
     <!-- Guestbook Section -->
-    <section id="guestbook" class="py-24 bg-black border-t border-white/5 relative">
+    <section id="guestbook" class="py-24 bg-paperBg border-t border-inkDark/10 relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <div class="text-white tracking-[0.2em] text-xs font-semibold uppercase">05 / Digital Trace</div>
-                <h2 class="text-3xl md:text-5xl font-light text-white tracking-tight">Guestbook Ledger</h2>
-                <div class="w-16 h-[2px] bg-white mx-auto"></div>
-                <p class="text-gray-400 font-light text-sm md:text-base">
-                    방문해주신 여러분의 생각이나 피드백을 실시간 디지털 방명록에 기록해 보세요.
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">05 / Digital Trace</div>
+                <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Guestbook Ledger</h2>
+                <div class="w-16 h-[1px] bg-inkDark mx-auto"></div>
+                <p class="text-inkGray font-light text-sm md:text-base">
+                    실시간 패들렛(Padlet) 보드가 완벽히 연동되어 있습니다. 소중한 의견을 메모로 남기거나 자유롭게 소통해보세요.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                <!-- Guestbook Form (Left) -->
-                <div class="lg:col-span-5 glass-panel p-8 rounded-lg space-y-6">
-                    <h3 class="text-lg font-bold text-white tracking-wider font-mono flex items-center gap-2 border-b border-white/10 pb-4">
-                        <i class="fa-solid fa-pen-nib"></i> LEAVE A MESSAGE
-                    </h3>
-                    <form id="guestbook-form" onsubmit="handleGuestbookSubmit(event)" class="space-y-4">
-                        <div class="space-y-1">
-                            <label class="text-xs text-gray-400 font-mono uppercase">Your Name (이름)</label>
-                            <input type="text" id="guestbook-name" required class="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-all font-mono" placeholder="Min Suhong">
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-xs text-gray-400 font-mono uppercase">Message (메시지)</label>
-                            <textarea id="guestbook-message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-all resize-none" placeholder="방문 소감을 남겨주세요."></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-gray-200 transition-all duration-300">
-                            SIGN THE LEDGER <i class="fa-solid fa-chevron-right ml-1"></i>
-                        </button>
-                    </form>
+            <!-- Responsive Interactive Padlet Wrapper -->
+            <div class="glass-panel p-2 md:p-4 rounded-lg shadow-xl relative border border-inkDark/10 overflow-hidden bg-paperLight">
+                <div class="relative w-full h-[600px] md:h-[700px] bg-paperLight rounded-md overflow-hidden">
+                    <!-- Premium Loader Spinner -->
+                    <div id="padlet-loader" class="absolute inset-0 flex flex-col justify-center items-center bg-paperBg z-20 transition-opacity duration-500 pointer-events-none">
+                        <div class="w-10 h-10 border-2 border-inkDark/10 border-t-inkDark rounded-full animate-spin"></div>
+                        <span class="text-xs font-mono text-inkGray tracking-widest mt-4">ESTABLISHING LIVE BOARD SYNC...</span>
+                    </div>
+                    
+                    <!-- Secure Padlet Embed View -->
+                    <iframe 
+                        src="https://padlet.com/embed/ezraisme1019/padlet-r7u91relort73xz8" 
+                        class="w-full h-full border-0 rounded-md relative z-10" 
+                        allow="camera; microphone; geolocation"
+                        onload="document.getElementById('padlet-loader').classList.add('opacity-0')"
+                        style="background: transparent;">
+                    </iframe>
                 </div>
 
-                <!-- Guestbook Messages List (Right) -->
-                <div class="lg:col-span-7 glass-panel p-8 rounded-lg flex flex-col justify-between min-h-[420px]">
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-bold text-white tracking-wider font-mono flex items-center gap-2 border-b border-white/10 pb-4 justify-between">
-                            <span><i class="fa-solid fa-database"></i> DIGITAL FEED</span>
-                            <span class="text-xs text-gray-500 font-normal" id="guestbook-count">3 entries</span>
-                        </h3>
-                        
-                        <!-- Messages Container -->
-                        <div id="guestbook-feed" class="space-y-4 max-h-[300px] overflow-y-auto pr-2">
-                            <!-- Prepopulated messages -->
-                            <div class="p-4 bg-white/5 border border-white/5 rounded space-y-2 font-mono">
-                                <div class="flex justify-between items-center text-xs">
-                                    <span class="text-white font-bold">김태형 (Architect)</span>
-                                    <span class="text-gray-500">2026.06.01</span>
-                                </div>
-                                <p class="text-sm text-gray-300 font-sans">웹 인터랙티브 3D 알고리즘 구현이 정말 멋지네요! 디자인 시뮬레이션을 모바일에서도 가볍게 확인해볼 수 있어 인상적입니다.</p>
-                            </div>
-                            <div class="p-4 bg-white/5 border border-white/5 rounded space-y-2 font-mono">
-                                <div class="flex justify-between items-center text-xs">
-                                    <span class="text-white font-bold">이지연 (UI Designer)</span>
-                                    <span class="text-gray-500">2026.05.28</span>
-                                </div>
-                                <p class="text-sm text-gray-300 font-sans">완벽한 모노크롬 하이콘트라스트 설계군요. 군더더기 없는 미니멀리즘을 건축 철학과 너무 잘 조화시켰습니다.</p>
-                            </div>
-                            <div class="p-4 bg-white/5 border border-white/5 rounded space-y-2 font-mono">
-                                <div class="flex justify-between items-center text-xs">
-                                    <span class="text-white font-bold">David Miller</span>
-                                    <span class="text-gray-500">2026.05.15</span>
-                                </div>
-                                <p class="text-sm text-gray-300 font-sans">Highly impressive computational model representation. The parametric logic analysis tool is exceptionally smooth!</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Open in New Tab Action Grid -->
+                <div class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono px-2">
+                    <span class="text-inkGray flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live Stream Synchronized
+                    </span>
+                    <a href="https://padlet.com/ezraisme1019/padlet-r7u91relort73xz8" target="_blank" class="w-full sm:w-auto text-center px-6 py-3 bg-inkDark text-paperBg font-semibold tracking-wider hover:bg-inkDark/90 transition-all duration-300 flex items-center justify-center gap-2">
+                        OPEN BOARD IN NEW TAB <i class="fa-solid fa-up-right-from-square text-[10px]"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-archGray border-t border-white/5 relative">
+    <section id="contact" class="py-24 bg-paperLight border-t border-inkDark/10 relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <div class="text-white tracking-[0.2em] text-xs font-semibold uppercase">06 / Collaboration Inquiry</div>
-                <h2 class="text-3xl md:text-5xl font-light text-white tracking-tight">Let's Synthesize Data & Form</h2>
-                <div class="w-16 h-[2px] bg-white mx-auto"></div>
-                <p class="text-gray-400 font-light text-sm md:text-base">
+                <div class="text-inkDark tracking-[0.2em] text-xs font-semibold uppercase">06 / Collaboration Inquiry</div>
+                <h2 class="text-3xl md:text-5xl font-light text-inkDark tracking-tight">Let's Synthesize Data & Form</h2>
+                <div class="w-16 h-[1px] bg-inkDark mx-auto"></div>
+                <p class="text-inkGray font-light text-sm md:text-base">
                     다음 파라메트릭 프로젝트 협업이나 기술 워크숍, 강연 요청 등 비즈니스 제안을 언제든 접수해주세요.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
                 <!-- Left Info Card -->
-                <div class="lg:col-span-5 glass-panel p-8 rounded-lg flex flex-col justify-between">
+                <div class="lg:col-span-5 glass-panel p-8 rounded-lg flex flex-col justify-between bg-paperBg/50 border border-inkDark/10">
                     <div class="space-y-8">
                         <div>
-                            <h4 class="text-white tracking-widest font-mono text-xs uppercase mb-3 text-white border-b border-white/10 pb-2">STUDIO OFFICE</h4>
-                            <p class="text-sm text-gray-400 font-light leading-relaxed">
+                            <h4 class="text-inkDark tracking-widest font-mono text-xs uppercase mb-3 border-b border-inkDark/10 pb-2">STUDIO OFFICE</h4>
+                            <p class="text-sm text-inkGray font-light leading-relaxed">
                                 서울시 강남구 테헤란로 2026, 알고리즘 빌딩 7F<br>
                                 STUDIO ARCH R&D Center
                             </p>
                         </div>
                         
                         <div>
-                            <h4 class="text-white tracking-widest font-mono text-xs uppercase mb-3 text-white border-b border-white/10 pb-2">COMMUNICATIONS</h4>
-                            <ul class="space-y-2 text-sm text-gray-400 font-light font-mono">
+                            <h4 class="text-inkDark tracking-widest font-mono text-xs uppercase mb-3 border-b border-inkDark/10 pb-2">COMMUNICATIONS</h4>
+                            <ul class="space-y-2 text-sm text-inkGray font-light font-mono">
                                 <li class="flex items-center gap-3">
-                                    <i class="fa-solid fa-envelope text-white"></i> info@studio-arch.org
+                                    <i class="fa-solid fa-envelope text-inkDark"></i> info@studio-arch.org
                                 </li>
                                 <li class="flex items-center gap-3">
-                                    <i class="fa-solid fa-phone text-white"></i> +82 (0)2 1234 5678
+                                    <i class="fa-solid fa-phone text-inkDark"></i> +82 (0)2 1234 5678
                                 </li>
                                 <li class="flex items-center gap-3">
-                                    <i class="fa-solid fa-globe text-white"></i> www.studio-arch.org
+                                    <i class="fa-solid fa-globe text-inkDark"></i> www.studio-arch.org
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- Custom notification center for contact responses inside iframe -->
-                    <div id="contact-response" class="hidden mt-6 p-4 bg-white/5 border border-white/25 text-white text-xs font-mono rounded">
+                    <div id="contact-response" class="hidden mt-6 p-4 bg-inkDark/5 border border-inkDark/10 text-inkDark text-xs font-mono rounded">
                         <!-- Message will be dynamically placed here -->
                     </div>
 
-                    <div class="pt-8 border-t border-white/5 text-xs text-gray-500 font-mono tracking-wider flex items-center gap-3">
-                        <i class="fa-solid fa-clock text-white"></i> UTC+9 / Responsive within 24h
+                    <div class="pt-8 border-t border-inkDark/5 text-xs text-inkGray font-mono tracking-wider flex items-center gap-3">
+                        <i class="fa-solid fa-clock text-inkDark"></i> UTC+9 / Responsive within 24h
                     </div>
                 </div>
 
                 <!-- Right Contact Form -->
-                <div class="lg:col-span-7 glass-panel p-8 rounded-lg">
+                <div class="lg:col-span-7 glass-panel p-8 rounded-lg bg-paperBg/50 border border-inkDark/10">
                     <form id="contact-form" class="space-y-6" onsubmit="handleContactSubmit(event)">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label class="text-xs text-gray-400 font-mono tracking-widest uppercase">Your Name (이름)</label>
-                                <input type="text" required class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all font-mono" placeholder="성함을 입력하세요.">
+                                <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Your Name (이름)</label>
+                                <input type="text" required class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkDark focus:outline-none focus:border-inkDark transition-all font-mono" placeholder="성함을 입력하세요.">
                             </div>
                             <div class="space-y-2">
-                                <label class="text-xs text-gray-400 font-mono tracking-widest uppercase">Email Address (이메일)</label>
-                                <input type="email" required class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all font-mono" placeholder="example@mail.com">
+                                <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Email Address (이메일)</label>
+                                <input type="email" required class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkDark focus:outline-none focus:border-inkDark transition-all font-mono" placeholder="example@mail.com">
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <label class="text-xs text-gray-400 font-mono tracking-widest uppercase">Project Type (프로젝트 유형)</label>
-                            <select class="w-full bg-archGray border border-white/10 rounded px-4 py-3 text-sm text-gray-300 focus:outline-none focus:border-white transition-all font-mono">
+                            <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Project Type (프로젝트 유형)</label>
+                            <select class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkGray focus:outline-none focus:border-inkDark transition-all font-mono">
                                 <option>Parametric Design Consultation</option>
                                 <option>Sustainability Performance Simulation</option>
                                 <option>Joint Research / Built Project</option>
@@ -717,11 +716,11 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label class="text-xs text-gray-400 font-mono tracking-widest uppercase">Message (상세 내용)</label>
-                            <textarea rows="5" required class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all resize-none" placeholder="협업 구상 중이신 아이디어나 대지 환경 조건을 설명해주세요."></textarea>
+                            <label class="text-xs text-inkGray font-mono tracking-widest uppercase">Message (상세 내용)</label>
+                            <textarea rows="5" required class="w-full bg-paperBg border border-inkDark/10 rounded px-4 py-3 text-sm text-inkDark focus:outline-none focus:border-inkDark transition-all resize-none font-mono" placeholder="협업 구상 중이신 아이디어나 대지 환경 조건을 설명해주세요."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-4 bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-gray-200 transition-all duration-300">
+                        <button type="submit" class="w-full py-4 bg-inkDark text-paperBg font-semibold text-xs tracking-widest uppercase hover:bg-inkDark/90 transition-all duration-300">
                             TRANSMIT ALGORITHMIC DESIGN BRIEF <i class="fa-solid fa-paper-plane ml-2"></i>
                         </button>
                     </form>
@@ -731,24 +730,24 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 bg-black border-t border-white/5 text-center text-xs text-gray-500 font-mono">
+    <footer class="py-12 bg-paperLight border-t border-inkDark/10 text-center text-xs text-inkGray font-mono">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
                 &copy; 2026 Min Suhong. All Computational Algorithms Reserved.
             </div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">PRIVACY CODE</a>
-                <a href="#" class="hover:text-white transition-colors">LICENSE</a>
-                <a href="#" class="hover:text-white transition-colors">GIT_REPOS</a>
+                <a href="#" class="hover:text-inkDark transition-colors">PRIVACY CODE</a>
+                <a href="#" class="hover:text-inkDark transition-colors">LICENSE</a>
+                <a href="#" class="hover:text-inkDark transition-colors">GIT_REPOS</a>
             </div>
         </div>
     </footer>
 
     <!-- Project Detail Modal Window Backdrop -->
-    <div id="project-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden justify-center items-center p-4">
-        <div class="w-full max-w-4xl max-h-[90vh] glass-panel rounded-lg overflow-y-auto text-left shadow-2xl relative border border-white/10 flex flex-col">
+    <div id="project-modal" class="fixed inset-0 z-50 bg-inkDark/40 backdrop-blur-md hidden justify-center items-center p-4">
+        <div class="w-full max-w-4xl max-h-[90vh] glass-panel rounded-lg overflow-y-auto text-left shadow-2xl relative border border-inkDark/10 flex flex-col bg-paperBg">
             <!-- Modal Close Action -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 z-10" aria-label="Close Modal">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-inkGray hover:text-inkDark transition-colors p-2 z-10" aria-label="Close Modal">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
             <div class="p-6 md:p-10 space-y-6" id="modal-content-container">
@@ -759,35 +758,15 @@
 
     <!-- JavaScript & Interactive Modules -->
     <script>
-        // 1. Mobile Menu Toggle Logic
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Hide mobile menu when picking nav links
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Dynamic Nav Background on Scroll
-        const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                mainNav.classList.add('py-1', 'bg-black/95');
-                mainNav.classList.remove('bg-black/70');
-            } else {
-                mainNav.classList.remove('py-1', 'bg-black/95');
-                mainNav.classList.add('bg-black/70');
+        // 1. Smooth Scroll Navigation Action Helper
+        function smoothScrollTo(selector) {
+            const target = document.querySelector(selector);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
             }
-        });
+        }
 
-        // 2. Structural Background Mesh Grid Canvas Animation (Hero)
+        // 2. Structural Background Mesh Grid Canvas Animation (Hero Background Matrix)
         const bgCanvas = document.getElementById('hero-grid-canvas');
         const bgCtx = bgCanvas.getContext('2d');
         let bgPoints = [];
@@ -826,8 +805,8 @@
 
         function animateBgGrid() {
             bgCtx.clearRect(0, 0, width, height);
-            bgCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-            bgCtx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            bgCtx.strokeStyle = 'rgba(18, 18, 18, 0.04)';
+            bgCtx.fillStyle = 'rgba(18, 18, 18, 0.06)';
             bgCtx.lineWidth = 1;
 
             const time = Date.now() * 0.001;
@@ -876,102 +855,7 @@
         animateBgGrid();
 
 
-        // 3. Mini Interactive Canvas for Twisting Teaser (Hero Panel)
-        const miniCanvas = document.getElementById('mini-hero-canvas');
-        const miniCtx = miniCanvas.getContext('2d');
-        let miniAngle = 0;
-        let miniInteractiveAngle = 0;
-        let isMiniDragging = false;
-        let startMiniX = 0;
-
-        function renderMiniTower() {
-            const w = miniCanvas.width = miniCanvas.parentElement.clientWidth;
-            const h = miniCanvas.height = 240;
-            miniCtx.clearRect(0, 0, w, h);
-
-            const layers = 18;
-            const cy = h * 0.85;
-            const cx = w / 2;
-            const layerHeight = 160 / layers;
-
-            miniCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-            miniCtx.fillStyle = 'rgba(10, 10, 10, 0.85)';
-            miniCtx.lineWidth = 1;
-
-            const activeAngle = miniAngle + miniInteractiveAngle;
-
-            for (let i = 0; i < layers; i++) {
-                const z = i / layers;
-                const taper = 1.0 - z * 0.5;
-                const twist = z * activeAngle;
-                const currentY = cy - i * layerHeight;
-                const size = 50 * taper;
-
-                // Points of scaled, twisted profile
-                const pts = [];
-                for (let a = 0; a < 4; a++) {
-                    const angleRad = (a * Math.PI / 2) + twist;
-                    // Project 3D to 2D
-                    const px = cx + Math.cos(angleRad) * size;
-                    const py = currentY + Math.sin(angleRad) * size * 0.4; // flat elevation skew
-                    pts.push({ x: px, y: py });
-                }
-
-                // Draw solid base
-                miniCtx.beginPath();
-                miniCtx.moveTo(pts[0].x, pts[0].y);
-                for (let p = 1; p < pts.length; p++) {
-                    miniCtx.lineTo(pts[p].x, pts[p].y);
-                }
-                miniCtx.closePath();
-                miniCtx.fillStyle = `rgba(10, 10, 10, ${0.4 + z * 0.4})`;
-                miniCtx.fill();
-                miniCtx.stroke();
-
-                // Structural grid corners
-                if (i % 2 === 0) {
-                    miniCtx.beginPath();
-                    miniCtx.arc(pts[0].x, pts[0].y, 1.5, 0, Math.PI*2);
-                    miniCtx.fillStyle = '#ffffff';
-                    miniCtx.fill();
-                }
-            }
-        }
-
-        // Automatic twisting rotation loop
-        function autoRotateMini() {
-            if (!isMiniDragging) {
-                miniAngle += 0.01;
-                renderMiniTower();
-            }
-            requestAnimationFrame(autoRotateMini);
-        }
-        autoRotateMini();
-
-        // Mouse inputs for mini tower twist
-        miniCanvas.addEventListener('mousedown', (e) => {
-            isMiniDragging = true;
-            startMiniX = e.clientX;
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (isMiniDragging) {
-                const dx = e.clientX - startMiniX;
-                miniInteractiveAngle = dx * 0.01;
-                renderMiniTower();
-            }
-        });
-
-        window.addEventListener('mouseup', () => {
-            if (isMiniDragging) {
-                isMiniDragging = false;
-                miniAngle += miniInteractiveAngle;
-                miniInteractiveAngle = 0;
-            }
-        });
-
-
-        // 4. Main Parametric Simulator Laboratory (3D Pseudo Engine)
+        // 3. Main Parametric Simulator Laboratory (3D Pseudo Engine)
         const mainLabCanvas = document.getElementById('main-lab-canvas');
         const mainCtx = mainLabCanvas.getContext('2d');
         
@@ -1021,13 +905,10 @@
             const waveValue = parseInt(paramWave.value);
             if (twistValue > 80 && twistValue < 190) {
                 statSolar.innerText = `Optimal (-${(10 + (twistValue/30) + (waveValue/20)).toFixed(1)}%)`;
-                statSolar.className = "text-green-400";
             } else if (twistValue >= 190 && twistValue <= 290) {
                 statSolar.innerText = `Moderate (-${(5 + (waveValue/30)).toFixed(1)}%)`;
-                statSolar.className = "text-amber-400";
             } else {
                 statSolar.innerText = `High Radiation Load`;
-                statSolar.className = "text-red-400";
             }
         }
 
@@ -1041,19 +922,19 @@
         // Toggle Rendering Mode
         document.getElementById('btn-wireframe').addEventListener('click', () => {
             simMode = 'wireframe';
-            document.getElementById('btn-wireframe').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-white/20 text-white hover:bg-white/30 transition-all border border-white/10";
-            document.getElementById('btn-shaded').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10";
+            document.getElementById('btn-wireframe').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all border border-inkDark/20";
+            document.getElementById('btn-shaded').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark/5 text-inkDark hover:bg-inkDark/10 transition-all border border-inkDark/10";
             drawSimBuilding();
         });
 
         document.getElementById('btn-shaded').addEventListener('click', () => {
             simMode = 'shaded';
-            document.getElementById('btn-shaded').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-white/20 text-white hover:bg-white/30 transition-all border border-white/20";
-            document.getElementById('btn-wireframe').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-white/10 text-white hover:bg-white/20 transition-all border border-white/10";
+            document.getElementById('btn-shaded').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark text-paperBg hover:bg-inkDark/90 transition-all border border-inkDark/20";
+            document.getElementById('btn-wireframe').className = "px-2.5 py-1 text-[10px] font-mono rounded bg-inkDark/5 text-inkDark hover:bg-inkDark/10 transition-all border border-inkDark/10";
             drawSimBuilding();
         });
 
-        // Engine Drawer Logic
+        // Engine Drawer Logic (Inverted to gorgeous monochrome paper / concrete grays)
         function drawSimBuilding() {
             const w = mainLabCanvas.width;
             const h = mainLabCanvas.height;
@@ -1113,22 +994,22 @@
                         const solarDir = -Math.PI / 4; // SE direction
                         const cosShade = Math.cos(normalAngle - solarDir);
                         
-                        // Color dynamic shading mapped across the building surface (Monochrome)
+                        // Shading mapped across building surfaces (Paper Matte Greys)
                         let r, g, b;
                         if (cosShade > 0.3) {
-                            // High contrast illuminated stark white/silver surfaces
-                            r = Math.floor(180 + cosShade * 75);
-                            g = Math.floor(180 + cosShade * 75);
-                            b = Math.floor(180 + cosShade * 75);
+                            // Bright Matte Concrete
+                            r = Math.floor(215 + cosShade * 25);
+                            g = Math.floor(212 + cosShade * 25);
+                            b = Math.floor(205 + cosShade * 25);
                         } else {
-                            // Deep shadows / obsidian paneling
-                            r = Math.floor(20 + (cosShade + 1) * 30);
-                            g = Math.floor(20 + (cosShade + 1) * 30);
-                            b = Math.floor(20 + (cosShade + 1) * 30);
+                            // Matte Gray Shadows
+                            r = Math.floor(130 + (cosShade + 1) * 35);
+                            g = Math.floor(128 + (cosShade + 1) * 35);
+                            b = Math.floor(122 + (cosShade + 1) * 35);
                         }
 
                         mainCtx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-                        mainCtx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                        mainCtx.strokeStyle = 'rgba(18, 18, 18, 0.08)';
                         mainCtx.lineWidth = 0.5;
 
                         // Draw facade panel connecting current floor layer to next layer
@@ -1166,8 +1047,8 @@
                         }
                     }
                 } else {
-                    // Wireframe Style Rendering
-                    mainCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+                    // Wireframe Style Rendering (Fine architectural black ink lines)
+                    mainCtx.strokeStyle = 'rgba(18, 18, 18, 0.5)';
                     mainCtx.lineWidth = 1;
 
                     mainCtx.beginPath();
@@ -1180,7 +1061,7 @@
 
                     // Structural vertical columns representation
                     if (f < floors - 1 && f % 2 === 0) {
-                        mainCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+                        mainCtx.strokeStyle = 'rgba(18, 18, 18, 0.12)';
                         const nextFloorY = cy - ((f + 1) * floorStep);
                         const nextZ = (f + 1) / floors;
                         const nextScale = 110 * (1.0 - nextZ * (1.0 - taperScale));
@@ -1275,14 +1156,14 @@
 
             // Notify custom message board instead of alert
             const notificationBox = document.createElement('div');
-            notificationBox.className = "fixed bottom-6 right-6 z-50 glass-panel px-6 py-4 border border-white/30 text-xs font-mono text-white rounded shadow-2xl animate-bounce";
+            notificationBox.className = "fixed bottom-6 right-6 z-50 glass-panel px-6 py-4 border border-inkDark/35 text-xs font-mono text-inkDark bg-paperLight rounded shadow-2xl animate-bounce";
             notificationBox.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Config file export success (.JSON)`;
             document.body.appendChild(notificationBox);
             setTimeout(() => { notificationBox.remove(); }, 3500);
         });
 
 
-        // 5. Portfolio Grid Category Filtering Logic
+        // 4. Portfolio Grid Category Filtering Logic
         const filterButtons = document.querySelectorAll('.filter-btn');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
 
@@ -1290,9 +1171,9 @@
             btn.addEventListener('click', () => {
                 // Update active button layout
                 filterButtons.forEach(b => {
-                    b.className = "filter-btn px-4 py-2.5 border border-white/10 text-gray-400 hover:text-white hover:border-white transition-all";
+                    b.className = "filter-btn px-4 py-2.5 border border-inkDark/10 text-inkGray hover:text-inkDark hover:border-inkDark transition-all";
                 });
-                btn.className = "filter-btn px-4 py-2.5 bg-white text-black border border-white font-bold transition-all";
+                btn.className = "filter-btn px-4 py-2.5 bg-inkDark text-paperBg border border-inkDark font-bold transition-all";
 
                 const category = btn.getAttribute('data-filter');
 
@@ -1308,7 +1189,7 @@
         });
 
 
-        // 6. Dynamic Modal Window Manager with Comprehensive Metadata Content
+        // 5. Dynamic Modal Window Manager with Comprehensive Metadata Content
         const modalBackdrop = document.getElementById('project-modal');
         const modalContainer = document.getElementById('modal-content-container');
 
@@ -1389,41 +1270,41 @@
             modalContainer.innerHTML = `
                 <div class="space-y-6">
                     <!-- Head Details -->
-                    <div class="border-b border-white/10 pb-4">
-                        <span class="text-xs text-white tracking-widest font-mono uppercase">${data.category}</span>
-                        <h2 class="text-2xl md:text-4xl font-semibold text-white tracking-wide mt-1">${data.title}</h2>
-                        <div class="flex flex-wrap gap-x-6 gap-y-2 mt-3 text-xs text-gray-400 font-mono">
-                            <div><span class="text-gray-500">LOCATION:</span> ${data.location}</div>
-                            <div><span class="text-gray-500">YEAR:</span> ${data.year}</div>
-                            <div><span class="text-gray-500">DETAILS:</span> ${data.stats}</div>
+                    <div class="border-b border-inkDark/10 pb-4">
+                        <span class="text-xs text-inkDark font-mono uppercase">${data.category}</span>
+                        <h2 class="text-2xl md:text-4xl font-semibold text-inkDark tracking-wide mt-1">${data.title}</h2>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2 mt-3 text-xs text-inkGray font-mono">
+                            <div><span class="text-inkGray">LOCATION:</span> ${data.location}</div>
+                            <div><span class="text-inkGray">YEAR:</span> ${data.year}</div>
+                            <div><span class="text-inkGray">DETAILS:</span> ${data.stats}</div>
                         </div>
                     </div>
 
                     <!-- Hero Spec Image -->
-                    <div class="aspect-[16/9] w-full rounded overflow-hidden bg-archGray">
-                        <img src="${data.imageUrl}" alt="${data.title}" class="w-full h-full object-cover opacity-80" onerror="this.src='https://placehold.co/1200x675/1a1d24/fff?text=STUDIO+ARCH+Case+Image'">
+                    <div class="aspect-[16/9] w-full rounded overflow-hidden bg-paperLight">
+                        <img src="${data.imageUrl}" alt="${data.title}" class="w-full h-full object-cover opacity-90" onerror="this.src='https://placehold.co/1200x675/e2e1dd/000?text=STUDIO+ARCH+Case+Image'">
                     </div>
 
                     <!-- Description Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm leading-relaxed">
                         <div class="space-y-3">
-                            <h4 class="text-white font-mono text-xs uppercase tracking-widest flex items-center gap-2 border-b border-white/10 pb-1">
+                            <h4 class="text-inkDark font-mono text-xs uppercase tracking-widest flex items-center gap-2 border-b border-inkDark/10 pb-1">
                                 <i class="fa-solid fa-triangle-exclamation"></i> PROJECT CHALLENGE
                             </h4>
-                            <p class="text-gray-300 font-light">${data.challenge}</p>
+                            <p class="text-inkGray font-light">${data.challenge}</p>
                         </div>
                         <div class="space-y-3">
-                            <h4 class="text-white font-mono text-xs uppercase tracking-widest flex items-center gap-2 border-b border-white/10 pb-1">
+                            <h4 class="text-inkDark font-mono text-xs uppercase tracking-widest flex items-center gap-2 border-b border-inkDark/10 pb-1">
                                 <i class="fa-solid fa-code-merge"></i> COMPUTATIONAL RESOLUTION
                             </h4>
-                            <p class="text-gray-300 font-light">${data.resolution}</p>
+                            <p class="text-inkGray font-light">${data.resolution}</p>
                         </div>
                     </div>
 
                     <!-- Tech stack list footer -->
-                    <div class="bg-white/5 border border-white/10 rounded p-4">
-                        <div class="text-xs text-gray-500 font-mono tracking-widest uppercase mb-2">SYSTEM PARAMETER STACK & INTEGRATIONS</div>
-                        <div class="text-xs text-white font-mono">${data.techStack}</div>
+                    <div class="bg-paperLight border border-inkDark/10 rounded p-4">
+                        <div class="text-xs text-inkGray font-mono tracking-widest uppercase mb-2">SYSTEM PARAMETER STACK & INTEGRATIONS</div>
+                        <div class="text-xs text-inkDark font-mono">${data.techStack}</div>
                     </div>
                 </div>
             `;
@@ -1447,60 +1328,7 @@
         });
 
 
-        // 7. Interactive Guestbook Processing Logic
-        let guestbookEntriesCount = 3;
-        function handleGuestbookSubmit(event) {
-            event.preventDefault();
-            const nameInput = document.getElementById('guestbook-name');
-            const messageInput = document.getElementById('guestbook-message');
-            const feedContainer = document.getElementById('guestbook-feed');
-            const countLabel = document.getElementById('guestbook-count');
-
-            const name = nameInput.value.trim();
-            const message = messageInput.value.trim();
-            if (!name || !message) return;
-
-            // Date processing
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const date = String(now.getDate()).padStart(2, '0');
-            const formattedDate = `${year}.${month}.${date}`;
-
-            // Create entry HTML
-            const newEntry = document.createElement('div');
-            newEntry.className = "p-4 bg-white/5 border border-white/10 rounded space-y-2 font-mono animate-pulse";
-            newEntry.innerHTML = `
-                <div class="flex justify-between items-center text-xs">
-                    <span class="text-white font-bold">${escapeHtml(name)}</span>
-                    <span class="text-gray-400 font-bold">${formattedDate} (Just Now)</span>
-                </div>
-                <p class="text-sm text-white font-sans">${escapeHtml(message)}</p>
-            `;
-
-            // Insert at the top of feed
-            feedContainer.insertBefore(newEntry, feedContainer.firstChild);
-
-            // Update stats
-            guestbookEntriesCount++;
-            countLabel.innerText = `${guestbookEntriesCount} entries`;
-
-            // Reset Form Inputs
-            event.target.reset();
-
-            // Smooth scroll feedback within feed
-            feedContainer.scrollTop = 0;
-            setTimeout(() => {
-                newEntry.classList.remove('animate-pulse');
-            }, 1500);
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-
-        // 8. Premium Interactive Contact form handler with custom UI notifications
+        // 6. Premium Interactive Contact form handler with custom UI notifications
         function handleContactSubmit(event) {
             event.preventDefault();
             const contactResponse = document.getElementById('contact-response');
@@ -1511,8 +1339,8 @@
             setTimeout(() => {
                 contactResponse.innerHTML = `
                     <div class="space-y-1">
-                        <div class="font-bold text-white"><i class="fa-solid fa-check-double mr-2"></i> DATA TRANSMITTED SUCCESSFULLY!</div>
-                        <div class="text-[10px] text-gray-400">Our computational pipeline has indexed your parameters. Min Suhong's office will reply to you within 24 hours.</div>
+                        <div class="font-bold text-inkDark"><i class="fa-solid fa-check-double mr-2"></i> DATA TRANSMITTED SUCCESSFULLY!</div>
+                        <div class="text-[10px] text-inkGray">Our computational pipeline has indexed your parameters. Min Suhong's office will reply to you within 24 hours.</div>
                     </div>
                 `;
                 event.target.reset();
