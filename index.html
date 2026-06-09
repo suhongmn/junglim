@@ -1347,5 +1347,40 @@
             }, 2000);
         }
     </script>
+    <!-- 작고 미묘한 관리자 접근 버튼 (좌측 하단 아주 작은 영역) -->
+<div id="admin-trigger-area" class="fixed bottom-0 left-0 w-8 h-8 z-[100] cursor-pointer opacity-10 hover:opacity-100 transition-opacity" 
+     onclick="promptAdminAccess()">
+</div>
+
+<!-- 비밀번호 입력 모달 -->
+<div id="password-modal" class="hidden fixed inset-0 z-[200] bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-md w-80 shadow-2xl">
+        <h3 class="text-sm font-bold mb-4 tracking-tighter">ADMIN ACCESS</h3>
+        <input type="password" id="admin-pass" placeholder="Password" class="w-full p-2 border mb-4">
+        <div class="flex gap-2">
+            <button onclick="checkPassword()" class="flex-1 bg-black text-white py-2 text-xs">CONFIRM</button>
+            <button onclick="document.getElementById('password-modal').classList.add('hidden')" class="flex-1 border py-2 text-xs">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const ADMIN_PASSWORD = "123"; // 설정할 비밀번호
+
+function promptAdminAccess() {
+    document.getElementById('password-modal').classList.remove('hidden');
+}
+
+function checkPassword() {
+    const input = document.getElementById('admin-pass').value;
+    if (input === ADMIN_PASSWORD) {
+        document.getElementById('password-modal').classList.add('hidden');
+        document.getElementById('admin-modal').classList.remove('hidden');
+        document.getElementById('admin-pass').value = '';
+    } else {
+        alert("Incorrect Password");
+    }
+}
+</script>
 </body>
 </html>
